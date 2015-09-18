@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "TODOApp",
+    "packageName": "org.istic.taa.todoapp",
+    "packageFolder": "org/istic/taa/todoapp",
+    "authenticationType": "session",
+    "hibernateCache": "hazelcast",
+    "clusteredHttpSession": "hazelcast",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "no",
+    "useSass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "enableTranslation": true,
+    "rememberMeKey": "9e90494e596ef2c80d1e7f45642ab2819210f893"
+  }
+}
