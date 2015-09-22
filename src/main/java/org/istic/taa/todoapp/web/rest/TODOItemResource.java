@@ -42,9 +42,9 @@ public class TODOItemResource {
     private TODOItemMapper tODOItemMapper;
 
     /**
-     * POST  /todoItem -> Create a new todoItem.
+     * POST  /todoItems -> Create a new todoItem.
      */
-    @RequestMapping(value = "/todoItem",
+    @RequestMapping(value = "/todoItems",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -61,9 +61,9 @@ public class TODOItemResource {
     }
 
     /**
-     * PUT  /todoItem -> Updates an existing todoItem.
+     * PUT  /todoItems -> Updates an existing todoItem.
      */
-    @RequestMapping(value = "/todoItem",
+    @RequestMapping(value = "/todoItems",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
