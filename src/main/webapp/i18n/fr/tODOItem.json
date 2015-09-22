@@ -1,0 +1,21 @@
+{
+    "todoappApp": {
+        "tODOItem" : {
+            "home": {
+                "title": "TODOItems",
+                "createLabel": "Créer un nouveau TODOItem",
+                "createOrEditLabel": "Créer ou éditer un TODOItem"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le TODOItem {{ id }} ?"
+            },
+            "detail": {
+                "title": "TODOItem"
+            },
+            "content": "Content",
+            "endDate": "EndDate",
+            "done": "Done"
+        }
+    }
+}
+

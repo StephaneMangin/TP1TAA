@@ -1,0 +1,23 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "content",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "endDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "done",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20150922093330",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll"
+}
