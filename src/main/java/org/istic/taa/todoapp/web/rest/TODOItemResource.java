@@ -42,9 +42,9 @@ public class TODOItemResource {
     private TODOItemMapper tODOItemMapper;
 
     /**
-     * POST  /tODOItems -> Create a new tODOItem.
+     * POST  /todoItem -> Create a new todoItem.
      */
-    @RequestMapping(value = "/tODOItems",
+    @RequestMapping(value = "/todoItem",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -61,9 +61,9 @@ public class TODOItemResource {
     }
 
     /**
-     * PUT  /tODOItems -> Updates an existing tODOItem.
+     * PUT  /todoItem -> Updates an existing todoItem.
      */
-    @RequestMapping(value = "/tODOItems",
+    @RequestMapping(value = "/todoItem",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -80,9 +80,9 @@ public class TODOItemResource {
     }
 
     /**
-     * GET  /tODOItems -> get all the tODOItems.
+     * GET  /todoItems -> get all the todoItems.
      */
-    @RequestMapping(value = "/tODOItems",
+    @RequestMapping(value = "/todoItems",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -97,9 +97,9 @@ public class TODOItemResource {
     }
 
     /**
-     * GET  /tODOItems/:id -> get the "id" tODOItem.
+     * GET  /todoItems/:id -> get the "id" todoItem.
      */
-    @RequestMapping(value = "/tODOItems/{id}",
+    @RequestMapping(value = "/todoItems/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -114,9 +114,9 @@ public class TODOItemResource {
     }
 
     /**
-     * DELETE  /tODOItems/:id -> delete the "id" tODOItem.
+     * DELETE  /todoItems/:id -> delete the "id" todoItem.
      */
-    @RequestMapping(value = "/tODOItems/{id}",
+    @RequestMapping(value = "/todoItems/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
