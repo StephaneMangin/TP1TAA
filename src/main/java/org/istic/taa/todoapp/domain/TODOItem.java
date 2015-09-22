@@ -21,22 +21,16 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class TODOItem implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name = "content")
+
     private String content;
-    
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
-    @JsonDeserialize(using = ISO8601LocalDateDeserializer.class)
-    @Column(name = "end_date")
+
     private LocalDate endDate;
-    
-    @Column(name = "done")
+
     private Boolean done;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -45,6 +39,7 @@ public class TODOItem implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -53,6 +48,10 @@ public class TODOItem implements Serializable {
         this.content = content;
     }
 
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @JsonDeserialize(using = ISO8601LocalDateDeserializer.class)
+    @Column(name = "end_date")
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -61,6 +60,7 @@ public class TODOItem implements Serializable {
         this.endDate = endDate;
     }
 
+    @Column(name = "done")
     public Boolean getDone() {
         return done;
     }
