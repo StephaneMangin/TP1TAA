@@ -1,10 +1,6 @@
 package org.istic.taa.todoapp.web.rest;
 
 import org.istic.taa.todoapp.Application;
-import org.istic.taa.todoapp.domain.TODOItem;
-import org.istic.taa.todoapp.repository.TODOItemRepository;
-import org.istic.taa.todoapp.web.rest.dto.TODOItemDTO;
-import org.istic.taa.todoapp.web.rest.mapper.TODOItemMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -162,7 +158,7 @@ public class TODOItemResourceTest {
         tODOItem.setContent(UPDATED_CONTENT);
         tODOItem.setEndDate(UPDATED_END_DATE);
         tODOItem.setDone(UPDATED_DONE);
-        
+
         TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
 
         restTODOItemMockMvc.perform(put("/api/tODOItems")
