@@ -1,6 +1,8 @@
 package org.istic.taa.todoapp.web.rest;
 
 import org.istic.taa.todoapp.Application;
+import org.istic.taa.todoapp.domain.TODOItem;
+import org.istic.taa.todoapp.repository.TODOItemRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,20 +45,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class TODOItemResourceTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
     private static final String DEFAULT_CONTENT = "SAMPLE_TEXT";
     private static final String UPDATED_CONTENT = "UPDATED_TEXT";
 
-    private static final LocalDate DEFAULT_END_DATE = new LocalDate(0L);
-    private static final LocalDate UPDATED_END_DATE = new LocalDate();
+    private static final DateTime DEFAULT_END_DATE = new DateTime(0L, DateTimeZone.UTC);
+    private static final DateTime UPDATED_END_DATE = new DateTime(DateTimeZone.UTC).withMillisOfSecond(0);
+    private static final String DEFAULT_END_DATE_STR = dateTimeFormatter.print(DEFAULT_END_DATE);
 
     private static final Boolean DEFAULT_DONE = false;
     private static final Boolean UPDATED_DONE = true;
 
     @Inject
     private TODOItemRepository tODOItemRepository;
-
-    @Inject
-    private TODOItemMapper tODOItemMapper;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -70,7 +75,6 @@ public class TODOItemResourceTest {
         MockitoAnnotations.initMocks(this);
         TODOItemResource tODOItemResource = new TODOItemResource();
         ReflectionTestUtils.setField(tODOItemResource, "tODOItemRepository", tODOItemRepository);
-        ReflectionTestUtils.setField(tODOItemResource, "tODOItemMapper", tODOItemMapper);
         this.restTODOItemMockMvc = MockMvcBuilders.standaloneSetup(tODOItemResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -90,11 +94,10 @@ public class TODOItemResourceTest {
         int databaseSizeBeforeCreate = tODOItemRepository.findAll().size();
 
         // Create the TODOItem
-        TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
 
         restTODOItemMockMvc.perform(post("/api/tODOItems")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tODOItemDTO)))
+                .content(TestUtil.convertObjectToJsonBytes(tODOItem)))
                 .andExpect(status().isCreated());
 
         // Validate the TODOItem in the database
@@ -102,7 +105,7 @@ public class TODOItemResourceTest {
         assertThat(tODOItems).hasSize(databaseSizeBeforeCreate + 1);
         TODOItem testTODOItem = tODOItems.get(tODOItems.size() - 1);
         assertThat(testTODOItem.getContent()).isEqualTo(DEFAULT_CONTENT);
-        assertThat(testTODOItem.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+        assertThat(testTODOItem.getEndDate().toDateTime(DateTimeZone.UTC)).isEqualTo(DEFAULT_END_DATE);
         assertThat(testTODOItem.getDone()).isEqualTo(DEFAULT_DONE);
     }
 
@@ -118,7 +121,7 @@ public class TODOItemResourceTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(tODOItem.getId().intValue())))
                 .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
-                .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
+                .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE_STR)))
                 .andExpect(jsonPath("$.[*].done").value(hasItem(DEFAULT_DONE.booleanValue())));
     }
 
@@ -134,7 +137,7 @@ public class TODOItemResourceTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(tODOItem.getId().intValue()))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
-            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
+            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE_STR))
             .andExpect(jsonPath("$.done").value(DEFAULT_DONE.booleanValue()));
     }
 
@@ -158,12 +161,11 @@ public class TODOItemResourceTest {
         tODOItem.setContent(UPDATED_CONTENT);
         tODOItem.setEndDate(UPDATED_END_DATE);
         tODOItem.setDone(UPDATED_DONE);
-
-        TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
+        
 
         restTODOItemMockMvc.perform(put("/api/tODOItems")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tODOItemDTO)))
+                .content(TestUtil.convertObjectToJsonBytes(tODOItem)))
                 .andExpect(status().isOk());
 
         // Validate the TODOItem in the database
@@ -171,7 +173,7 @@ public class TODOItemResourceTest {
         assertThat(tODOItems).hasSize(databaseSizeBeforeUpdate);
         TODOItem testTODOItem = tODOItems.get(tODOItems.size() - 1);
         assertThat(testTODOItem.getContent()).isEqualTo(UPDATED_CONTENT);
-        assertThat(testTODOItem.getEndDate()).isEqualTo(UPDATED_END_DATE);
+        assertThat(testTODOItem.getEndDate().toDateTime(DateTimeZone.UTC)).isEqualTo(UPDATED_END_DATE);
         assertThat(testTODOItem.getDone()).isEqualTo(UPDATED_DONE);
     }
 

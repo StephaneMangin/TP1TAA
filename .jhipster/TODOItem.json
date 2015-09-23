@@ -1,0 +1,39 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "owner",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+//        },
+//        {
+//            "relationshipId": 2,
+//            "relationshipName": "sharedUser",
+//            "otherEntityName": "user",
+//            "relationshipType": "many-to-many",
+//            "otherEntityField": "login",
+//            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "content",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "endDate",
+            "fieldType": "DateTime"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "done",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20150923111626",
+    "dto": "no",
+    "pagination": "infinite-scroll"
+}
