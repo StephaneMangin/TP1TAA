@@ -17,7 +17,7 @@
     <!--
         Added the entity TODOItem.
     -->
-    <changeSet id="20150923111626" author="jhipster">
+    <changeSet id="20150923155253" author="jhipster">
         <createTable tableName="TODOITEM">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
