@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "appPath": "src/main/webapp",
     "testPath": "src/test/javascript/spec",
+    "directory": "src/main/webapp/bower_components",
     "dependencies": {
         "angular": "1.4.5",
         "angular-aria": "1.4.5",
