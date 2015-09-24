@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/StephaneMangin/TP1TAA.svg)](https://travis-ci.org/StephaneMangin/TP1TAA)
+
 # Developing TODOApp
 
 TODOApp was generated using JHipster, you can find documentation and help at [JHipster][].
