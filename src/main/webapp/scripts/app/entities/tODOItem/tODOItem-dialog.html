@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label translate="todoappApp.tODOItem.owner" for="field_owner">owner</label>
-            <select class="form-control" id="field_owner" name="owner" ng-model="tODOItem.ownerId" ng-options="user.id as user.login for user in users">
+            <select class="form-control" id="field_owner" name="owner" ng-model="tODOItem.owner" ng-options="Owner as Owner.name for Owner in owners track by Owner.id">
                 <option value=""></option>
             </select>
         </div>

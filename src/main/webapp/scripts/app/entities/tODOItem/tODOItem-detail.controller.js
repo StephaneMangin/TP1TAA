@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('todoappApp')
-    .controller('TODOItemDetailController', function ($scope, $rootScope, $stateParams, entity, TODOItem, User) {
+    .controller('TODOItemDetailController', function ($scope, $rootScope, $stateParams, entity, TODOItem, Owner) {
         $scope.tODOItem = entity;
         $scope.load = function (id) {
             TODOItem.get({id: id}, function(result) {

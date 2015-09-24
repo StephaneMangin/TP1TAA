@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('todoappApp').controller('TODOItemDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'TODOItem', 'User',
-        function($scope, $stateParams, $modalInstance, entity, TODOItem, User) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'TODOItem', 'Owner',
+        function($scope, $stateParams, $modalInstance, entity, TODOItem, Owner) {
 
         $scope.tODOItem = entity;
-        $scope.users = User.query();
+        $scope.owners = Owner.query();
         $scope.load = function(id) {
             TODOItem.get({id : id}, function(result) {
                 $scope.tODOItem = result;

@@ -3,11 +3,11 @@
         {
             "relationshipId": 1,
             "relationshipName": "owner",
-            "otherEntityName": "user",
+            "otherEntityName": "Owner",
             "relationshipType": "many-to-one",
-            "otherEntityField": "login"
+            "otherEntityField": "name"
         }
-    ],
+  ],
     "fields": [
         {
             "fieldId": 1,
@@ -26,6 +26,6 @@
         }
     ],
     "changelogDate": "20150923155253",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "infinite-scroll"
 }

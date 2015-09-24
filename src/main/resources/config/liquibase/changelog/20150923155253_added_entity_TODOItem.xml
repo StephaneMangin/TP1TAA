@@ -29,12 +29,12 @@
         </createTable>
         <dropDefaultValue tableName="TODOITEM" columnName="end_date" columnDataType="datetime"/>
 
-        
+
         <addForeignKeyConstraint baseColumnNames="owner_id"
                                  baseTableName="TODOITEM"
                                  constraintName="fk_todoitem_owner_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="JHI_USER"/>
+                                 referencedTableName="OWNER"/>
 
     </changeSet>
 </databaseChangeLog>

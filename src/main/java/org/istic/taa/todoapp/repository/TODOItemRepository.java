@@ -10,7 +10,4 @@ import java.util.List;
  */
 public interface TODOItemRepository extends JpaRepository<TODOItem,Long> {
 
-    @Query("select tODOItem from TODOItem tODOItem where tODOItem.owner.login = ?#{principal.username}")
-    List<TODOItem> findByOwnerIsCurrentUser();
-
 }

@@ -3,8 +3,6 @@ package org.istic.taa.todoapp.web.rest;
 import org.istic.taa.todoapp.Application;
 import org.istic.taa.todoapp.domain.TODOItem;
 import org.istic.taa.todoapp.repository.TODOItemRepository;
-import org.istic.taa.todoapp.web.rest.dto.TODOItemDTO;
-import org.istic.taa.todoapp.web.rest.mapper.TODOItemMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,9 +61,6 @@ public class TODOItemResourceTest {
     private TODOItemRepository tODOItemRepository;
 
     @Inject
-    private TODOItemMapper tODOItemMapper;
-
-    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -80,7 +75,6 @@ public class TODOItemResourceTest {
         MockitoAnnotations.initMocks(this);
         TODOItemResource tODOItemResource = new TODOItemResource();
         ReflectionTestUtils.setField(tODOItemResource, "tODOItemRepository", tODOItemRepository);
-        ReflectionTestUtils.setField(tODOItemResource, "tODOItemMapper", tODOItemMapper);
         this.restTODOItemMockMvc = MockMvcBuilders.standaloneSetup(tODOItemResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -100,11 +94,10 @@ public class TODOItemResourceTest {
         int databaseSizeBeforeCreate = tODOItemRepository.findAll().size();
 
         // Create the TODOItem
-        TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
 
         restTODOItemMockMvc.perform(post("/api/tODOItems")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tODOItemDTO)))
+                .content(TestUtil.convertObjectToJsonBytes(tODOItem)))
                 .andExpect(status().isCreated());
 
         // Validate the TODOItem in the database
@@ -169,11 +162,10 @@ public class TODOItemResourceTest {
         tODOItem.setEndDate(UPDATED_END_DATE);
         tODOItem.setDone(UPDATED_DONE);
         
-        TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
 
         restTODOItemMockMvc.perform(put("/api/tODOItems")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tODOItemDTO)))
+                .content(TestUtil.convertObjectToJsonBytes(tODOItem)))
                 .andExpect(status().isOk());
 
         // Validate the TODOItem in the database

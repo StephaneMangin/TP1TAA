@@ -39,7 +39,7 @@
                     <span translate="todoappApp.tODOItem.owner">owner</span>
                 </td>
                 <td>
-                    {{tODOItem.ownerLogin}}
+                    <a class="form-control-static" ui-sref="Owner.detail({id:tODOItem.owner.id})">{{tODOItem.owner.name}}</a>
                 </td>
             </tr>
             </tbody>

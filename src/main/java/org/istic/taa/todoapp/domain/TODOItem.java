@@ -40,7 +40,7 @@ public class TODOItem implements Serializable {
     private Boolean done;
 
     @ManyToOne
-    private User owner;
+    private Owner owner;
 
     public Long getId() {
         return id;
@@ -74,12 +74,12 @@ public class TODOItem implements Serializable {
         this.done = done;
     }
 
-    public User getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(User user) {
-        this.owner = user;
+    public void setOwner(Owner Owner) {
+        this.owner = Owner;
     }
 
     @Override
