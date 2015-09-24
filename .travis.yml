@@ -5,7 +5,8 @@ sudo: false
 before_install:
   - npm install -g grunt-cli bower
   - bower install
-install: npm install
+  - npm install
+install: mvn clean install
 before_script: grunt build
 notifications:
   webhooks:
