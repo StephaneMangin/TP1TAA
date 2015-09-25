@@ -5,6 +5,8 @@ import org.istic.taa.todoapp.domain.TODOItem;
 import org.istic.taa.todoapp.repository.TODOItemRepository;
 import org.istic.taa.todoapp.web.rest.util.HeaderUtil;
 import org.istic.taa.todoapp.web.rest.util.PaginationUtil;
+import org.istic.taa.todoapp.web.rest.dto.TODOItemDTO;
+import org.istic.taa.todoapp.web.rest.mapper.TODOItemMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -13,13 +15,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing TODOItem.
@@ -33,6 +38,9 @@ public class TODOItemResource {
     @Inject
     private TODOItemRepository tODOItemRepository;
 
+    @Inject
+    private TODOItemMapper tODOItemMapper;
+
     /**
      * POST  /tODOItems -> Create a new tODOItem.
      */
@@ -40,15 +48,16 @@ public class TODOItemResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<TODOItem> createTODOItem(@RequestBody TODOItem tODOItem) throws URISyntaxException {
-        log.debug("REST request to save TODOItem : {}", tODOItem);
-        if (tODOItem.getId() != null) {
+    public ResponseEntity<TODOItemDTO> createTODOItem(@RequestBody TODOItemDTO tODOItemDTO) throws URISyntaxException {
+        log.debug("REST request to save TODOItem : {}", tODOItemDTO);
+        if (tODOItemDTO.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new tODOItem cannot already have an ID").body(null);
         }
+        TODOItem tODOItem = tODOItemMapper.tODOItemDTOToTODOItem(tODOItemDTO);
         TODOItem result = tODOItemRepository.save(tODOItem);
         return ResponseEntity.created(new URI("/api/tODOItems/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("tODOItem", result.getId().toString()))
-                .body(result);
+                .body(tODOItemMapper.tODOItemToTODOItemDTO(result));
     }
 
     /**
@@ -58,15 +67,16 @@ public class TODOItemResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<TODOItem> updateTODOItem(@RequestBody TODOItem tODOItem) throws URISyntaxException {
-        log.debug("REST request to update TODOItem : {}", tODOItem);
-        if (tODOItem.getId() == null) {
-            return createTODOItem(tODOItem);
+    public ResponseEntity<TODOItemDTO> updateTODOItem(@RequestBody TODOItemDTO tODOItemDTO) throws URISyntaxException {
+        log.debug("REST request to update TODOItem : {}", tODOItemDTO);
+        if (tODOItemDTO.getId() == null) {
+            return createTODOItem(tODOItemDTO);
         }
+        TODOItem tODOItem = tODOItemMapper.tODOItemDTOToTODOItem(tODOItemDTO);
         TODOItem result = tODOItemRepository.save(tODOItem);
         return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert("tODOItem", tODOItem.getId().toString()))
-                .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert("tODOItem", tODOItemDTO.getId().toString()))
+                .body(tODOItemMapper.tODOItemToTODOItemDTO(result));
     }
 
     /**
@@ -76,11 +86,14 @@ public class TODOItemResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<TODOItem>> getAllTODOItems(Pageable pageable)
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<TODOItemDTO>> getAllTODOItems(Pageable pageable)
         throws URISyntaxException {
         Page<TODOItem> page = tODOItemRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tODOItems");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(page.getContent().stream()
+            .map(tODOItemMapper::tODOItemToTODOItemDTO)
+            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
 
     /**
@@ -90,11 +103,12 @@ public class TODOItemResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<TODOItem> getTODOItem(@PathVariable Long id) {
+    public ResponseEntity<TODOItemDTO> getTODOItem(@PathVariable Long id) {
         log.debug("REST request to get TODOItem : {}", id);
         return Optional.ofNullable(tODOItemRepository.findOne(id))
-            .map(tODOItem -> new ResponseEntity<>(
-                tODOItem,
+            .map(tODOItemMapper::tODOItemToTODOItemDTO)
+            .map(tODOItemDTO -> new ResponseEntity<>(
+                tODOItemDTO,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

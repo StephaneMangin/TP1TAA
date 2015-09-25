@@ -3,6 +3,8 @@ package org.istic.taa.todoapp.web.rest;
 import org.istic.taa.todoapp.Application;
 import org.istic.taa.todoapp.domain.Owner;
 import org.istic.taa.todoapp.repository.OwnerRepository;
+import org.istic.taa.todoapp.web.rest.dto.OwnerDTO;
+import org.istic.taa.todoapp.web.rest.mapper.OwnerMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +48,9 @@ public class OwnerResourceTest {
     private OwnerRepository ownerRepository;
 
     @Inject
+    private OwnerMapper ownerMapper;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -60,6 +65,7 @@ public class OwnerResourceTest {
         MockitoAnnotations.initMocks(this);
         OwnerResource ownerResource = new OwnerResource();
         ReflectionTestUtils.setField(ownerResource, "ownerRepository", ownerRepository);
+        ReflectionTestUtils.setField(ownerResource, "ownerMapper", ownerMapper);
         this.restOwnerMockMvc = MockMvcBuilders.standaloneSetup(ownerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -76,10 +82,11 @@ public class OwnerResourceTest {
         int databaseSizeBeforeCreate = ownerRepository.findAll().size();
 
         // Create the Owner
+        OwnerDTO ownerDTO = ownerMapper.ownerToOwnerDTO(owner);
 
         restOwnerMockMvc.perform(post("/api/owners")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(owner)))
+                .content(TestUtil.convertObjectToJsonBytes(ownerDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Owner in the database
@@ -132,10 +139,11 @@ public class OwnerResourceTest {
 
         // Update the owner
         
+        OwnerDTO ownerDTO = ownerMapper.ownerToOwnerDTO(owner);
 
         restOwnerMockMvc.perform(put("/api/owners")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(owner)))
+                .content(TestUtil.convertObjectToJsonBytes(ownerDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Owner in the database

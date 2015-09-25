@@ -19,6 +19,6 @@
     ],
     "fields": [],
     "changelogDate": "20150925090034",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "infinite-scroll"
 }
