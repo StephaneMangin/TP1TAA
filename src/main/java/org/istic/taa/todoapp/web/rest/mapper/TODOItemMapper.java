@@ -16,6 +16,7 @@ public interface TODOItemMapper {
     TODOItemDTO tODOItemToTODOItemDTO(TODOItem tODOItem);
 
     @Mapping(source = "ownerId", target = "owner")
+    @Mapping(target = "sharedOwners", ignore = true)
     TODOItem tODOItemDTOToTODOItem(TODOItemDTO tODOItemDTO);
 
     default Owner OwnerFromId(Long id) {

@@ -47,7 +47,7 @@ public class OwnerResource {
     /**
      * POST  /owners -> Create a new owner.
      */
-    @Secured(AuthoritiesConstants.ADMIN)
+    //@Secured(AuthoritiesConstants.ADMIN)
     @RequestMapping(value = "/owners",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,7 +67,7 @@ public class OwnerResource {
     /**
      * PUT  /owners -> Updates an existing owner.
      */
-    @Secured(AuthoritiesConstants.ADMIN)
+    //@Secured(AuthoritiesConstants.ADMIN)
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/owners",
         method = RequestMethod.PUT,
@@ -88,7 +88,7 @@ public class OwnerResource {
     /**
      * GET  /owners -> get all the owners.
      */
-    @Secured(AuthoritiesConstants.USER)
+    //@Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/owners",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -106,7 +106,7 @@ public class OwnerResource {
     /**
      * GET  /owners/:id -> get the "id" owner.
      */
-    @Secured(AuthoritiesConstants.USER)
+    //@Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/owners/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -124,7 +124,7 @@ public class OwnerResource {
     /**
      * DELETE  /owners/:id -> delete the "id" owner.
      */
-    @Secured(AuthoritiesConstants.ADMIN)
+    //@Secured(AuthoritiesConstants.ADMIN)
     @RequestMapping(value = "/owners/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)

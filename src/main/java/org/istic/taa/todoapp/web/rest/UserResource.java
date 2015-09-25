@@ -2,8 +2,10 @@ package org.istic.taa.todoapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.istic.taa.todoapp.domain.Authority;
+import org.istic.taa.todoapp.domain.Owner;
 import org.istic.taa.todoapp.domain.User;
 import org.istic.taa.todoapp.repository.AuthorityRepository;
+import org.istic.taa.todoapp.repository.OwnerRepository;
 import org.istic.taa.todoapp.repository.UserRepository;
 import org.istic.taa.todoapp.security.AuthoritiesConstants;
 import org.istic.taa.todoapp.service.UserService;
@@ -61,6 +63,9 @@ public class UserResource {
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
+    private OwnerRepository ownerRepository;
+
+    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -76,13 +81,17 @@ public class UserResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    //@Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
         log.debug("REST request to save User : {}", user);
         if (user.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new user cannot already have an ID").body(null);
         }
         User result = userRepository.save(user);
+        Owner owner = new Owner();
+        owner.setUser(user);
+        owner.setName(user.getLogin());
+        ownerRepository.save(owner);
         return ResponseEntity.created(new URI("/api/users/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("user", result.getId().toString()))
                 .body(result);
@@ -96,7 +105,7 @@ public class UserResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
-    @Secured(AuthoritiesConstants.USER)
+    //@Secured(AuthoritiesConstants.USER)
     public ResponseEntity<ManagedUserDTO> updateUser(@RequestBody ManagedUserDTO managedUserDTO) throws URISyntaxException {
         log.debug("REST request to update User : {}", managedUserDTO);
         return Optional.of(userRepository
@@ -113,6 +122,8 @@ public class UserResource {
                 managedUserDTO.getAuthorities().stream().forEach(
                     authority -> authorities.add(authorityRepository.findOne(authority))
                 );
+                Owner owner = ownerRepository.findOneByUserId(managedUserDTO.getId()).get();
+                owner.setName(managedUserDTO.getLogin());
                 return ResponseEntity.ok()
                     .headers(HeaderUtil.createEntityUpdateAlert("user", managedUserDTO.getLogin()))
                     .body(new ManagedUserDTO(userRepository
@@ -129,7 +140,7 @@ public class UserResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    @Secured(AuthoritiesConstants.USER)
+    //@Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<ManagedUserDTO>> getAllUsers(Pageable pageable)
         throws URISyntaxException {
         Page<User> page = userRepository.findAll(pageable);
@@ -147,7 +158,7 @@ public class UserResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @Secured(AuthoritiesConstants.USER)
+    //@Secured(AuthoritiesConstants.USER)
     public ResponseEntity<ManagedUserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return userService.getUserWithAuthoritiesByLogin(login)

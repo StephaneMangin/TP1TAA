@@ -14,7 +14,8 @@ import java.util.List;
  */
 public interface TODOItemRepository extends JpaRepository<TODOItem,Long> {
 
-    Page<TODOItem> findAllByOwner(Owner o, Pageable p);
+    @Query("select distinct tODOItem from TODOItem tODOItem WHERE tODOItem.owner = :owner OR :owner MEMBER OF tODOItem.sharedOwners")
+    Page<TODOItem> findAllByOwner(@Param("owner") Long o, Pageable p);
 
     @Query("select distinct tODOItem from TODOItem tODOItem left join fetch tODOItem.sharedOwners")
     List<TODOItem> findAllWithEagerRelationships();

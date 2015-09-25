@@ -150,17 +150,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
     }
-
-    @Bean
-    public UserDetailsService userDetailsService(){
-        User user = new User();
-        user.setLogin("test");
-        user.setPassword("test");
-        Set authorities = new HashSet<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("USER"));
-        user.setAuthorities(authorities);
-        UserDetails userDetails = (UserDetails) user;
-        return new InMemoryUserDetailsManager(Arrays.asList(userDetails));
-    }
 }

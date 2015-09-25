@@ -39,7 +39,7 @@
                     <span translate="todoappApp.tODOItem.owner">owner</span>
                 </td>
                 <td>
-                    <a class="form-control-static" ui-sref="Owner.detail({id:tODOItem.ownerId})">{{tODOItem.ownerName}}</a>
+                    <a class="form-control-static" ui-sref="owner.detail({id:tODOItem.ownerId})">{{tODOItem.ownerName}}</a>
                 </td>
             </tr>
             <tr>
@@ -48,7 +48,7 @@
                 </td>
                 <td>
                     <span ng-repeat="sharedOwner in tODOItem.sharedOwners">
-                        <a class="form-control-static" ui-sref="Owner.detail({id: {{sharedOwner.id}}})">{{sharedOwner.name}}</a>{{$last ? '' : ', '}}
+                        <a class="form-control-static" ui-sref="owner.detail({id: {{sharedOwner.id}}})">{{sharedOwner.name}}</a>{{$last ? '' : ', '}}
                     <span>
                 </td>
             </tr>
