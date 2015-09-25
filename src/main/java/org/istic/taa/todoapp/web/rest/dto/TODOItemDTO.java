@@ -22,6 +22,9 @@ public class TODOItemDTO implements Serializable {
 
     private Long ownerId;
 
+    private String ownerName;
+    private Set<OwnerDTO> sharedOwners = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -58,8 +61,24 @@ public class TODOItemDTO implements Serializable {
         return ownerId;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setOwnerId(Long OwnerId) {
+        this.ownerId = OwnerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String OwnerName) {
+        this.ownerName = OwnerName;
+    }
+
+    public Set<OwnerDTO> getSharedOwners() {
+        return sharedOwners;
+    }
+
+    public void setSharedOwners(Set<OwnerDTO> Owners) {
+        this.sharedOwners = Owners;
     }
 
     @Override

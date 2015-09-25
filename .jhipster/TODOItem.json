@@ -3,9 +3,18 @@
         {
             "relationshipId": 1,
             "relationshipName": "owner",
-            "otherEntityName": "owner",
+            "otherEntityName": "Owner",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "sharedOwner",
+            "otherEntityName": "Owner",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "sharedTodoItem"
         }
     ],
     "fields": [
@@ -29,3 +38,4 @@
     "dto": "mapstruct",
     "pagination": "infinite-scroll"
 }
+

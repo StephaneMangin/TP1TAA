@@ -12,8 +12,10 @@
             "detail": {
                 "title": "Owner"
             },
+            "name": "Name",
             "user": "User",
-            "tODOItem": "TODOItem"
+            "todoItem": "TodoItem",
+            "sharedTodoItem": "SharedTodoItem"
         }
     }
 }

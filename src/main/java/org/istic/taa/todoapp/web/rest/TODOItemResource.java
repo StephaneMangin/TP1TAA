@@ -105,7 +105,7 @@ public class TODOItemResource {
     @Timed
     public ResponseEntity<TODOItemDTO> getTODOItem(@PathVariable Long id) {
         log.debug("REST request to get TODOItem : {}", id);
-        return Optional.ofNullable(tODOItemRepository.findOne(id))
+        return Optional.ofNullable(tODOItemRepository.findOneWithEagerRelationships(id))
             .map(tODOItemMapper::tODOItemToTODOItemDTO)
             .map(tODOItemDTO -> new ResponseEntity<>(
                 tODOItemDTO,

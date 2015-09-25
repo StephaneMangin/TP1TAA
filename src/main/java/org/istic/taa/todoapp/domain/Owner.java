@@ -21,6 +21,9 @@ public class Owner implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @Column(name = "name")
+    private String name;
 
     @OneToOne
     private User user;
@@ -28,7 +31,12 @@ public class Owner implements Serializable {
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<TODOItem> tODOItems = new HashSet<>();
+    private Set<TODOItem> todoItems = new HashSet<>();
+
+    @ManyToMany(mappedBy = "sharedOwners")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<TODOItem> sharedTodoItems = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -38,20 +46,36 @@ public class Owner implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User User) {
+        this.user = User;
     }
 
-    public Set<TODOItem> getTODOItems() {
-        return tODOItems;
+    public Set<TODOItem> getTodoItems() {
+        return todoItems;
     }
 
-    public void setTODOItems(Set<TODOItem> tODOItems) {
-        this.tODOItems = tODOItems;
+    public void setTodoItems(Set<TODOItem> TODOItems) {
+        this.todoItems = TODOItems;
+    }
+
+    public Set<TODOItem> getSharedTodoItems() {
+        return sharedTodoItems;
+    }
+
+    public void setSharedTodoItems(Set<TODOItem> TODOItems) {
+        this.sharedTodoItems = TODOItems;
     }
 
     @Override
@@ -79,6 +103,7 @@ public class Owner implements Serializable {
     public String toString() {
         return "Owner{" +
                 "id=" + id +
+                ", name='" + name + "'" +
                 '}';
     }
 }

@@ -42,6 +42,13 @@ public class TODOItem implements Serializable {
     @ManyToOne
     private Owner owner;
 
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "TODOITEM_SHARED_OWNER",
+               joinColumns = @JoinColumn(name="todoitems_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="shared_owners_id", referencedColumnName="ID"))
+    private Set<Owner> sharedOwners = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -78,8 +85,16 @@ public class TODOItem implements Serializable {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setOwner(Owner Owner) {
+        this.owner = Owner;
+    }
+
+    public Set<Owner> getSharedOwners() {
+        return sharedOwners;
+    }
+
+    public void setSharedOwners(Set<Owner> Owners) {
+        this.sharedOwners = Owners;
     }
 
     @Override

@@ -15,7 +15,8 @@
             "content": "Content",
             "endDate": "EndDate",
             "done": "Done",
-            "owner": "Owner"
+            "owner": "Owner",
+            "sharedOwner": "SharedOwner"
         }
     }
 }

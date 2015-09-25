@@ -36,5 +36,28 @@
                                  referencedColumnNames="id"
                                  referencedTableName="OWNER"/>
 
+        <createTable tableName="TODOITEM_SHARED_OWNER">
+            <column name="shared_owners_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="todoitems_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="todoitems_id, shared_owners_id" tableName="TODOITEM_SHARED_OWNER"/>
+
+        <addForeignKeyConstraint baseColumnNames="todoitems_id"
+                                 baseTableName="TODOITEM_SHARED_OWNER"
+                                 constraintName="fk_todoitem_sharedowner_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="TODOITEM"/>
+
+        <addForeignKeyConstraint baseColumnNames="shared_owners_id"
+                                 baseTableName="TODOITEM_SHARED_OWNER"
+                                 constraintName="fk_owner_sharedowner_todoitem_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="OWNER"/>
+        
     </changeSet>
 </databaseChangeLog>

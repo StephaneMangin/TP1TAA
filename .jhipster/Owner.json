@@ -3,7 +3,7 @@
         {
             "relationshipId": 1,
             "relationshipName": "user",
-            "otherEntityName": "user",
+            "otherEntityName": "User",
             "relationshipType": "one-to-one",
             "otherEntityField": "login",
             "ownerSide": true,
@@ -11,14 +11,30 @@
         },
         {
             "relationshipId": 2,
-            "relationshipName": "tODOItem",
-            "otherEntityName": "tODOItem",
+            "relationshipName": "todoItem",
+            "otherEntityName": "TODOItem",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "owner"
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "sharedTodoItem",
+            "otherEntityName": "TODOItem",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "sharedOwner"
         }
     ],
-    "fields": [],
+    "fields": [
+      {
+        "fieldId": 1,
+        "fieldName": "name",
+        "fieldType": "String"
+      }
+    ],
     "changelogDate": "20150925090034",
     "dto": "mapstruct",
     "pagination": "infinite-scroll"
 }
+

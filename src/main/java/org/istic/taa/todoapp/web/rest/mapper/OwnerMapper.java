@@ -16,15 +16,16 @@ public interface OwnerMapper {
     OwnerDTO ownerToOwnerDTO(Owner owner);
 
     @Mapping(source = "userId", target = "user")
-    @Mapping(target = "TODOItems", ignore = true)
+    @Mapping(target = "todoItems", ignore = true)
+    @Mapping(target = "sharedTodoItems", ignore = true)
     Owner ownerDTOToOwner(OwnerDTO ownerDTO);
 
-    default User userFromId(Long id) {
+    default User UserFromId(Long id) {
         if (id == null) {
             return null;
         }
-        User user = new User();
-        user.setId(id);
-        return user;
+        User User = new User();
+        User.setId(id);
+        return User;
     }
 }

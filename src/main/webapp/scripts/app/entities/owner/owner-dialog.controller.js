@@ -5,7 +5,15 @@ angular.module('todoappApp').controller('OwnerDialogController',
         function($scope, $stateParams, $modalInstance, $q, entity, Owner, User, TODOItem) {
 
         $scope.owner = entity;
-        $scope.users = User.query();
+        $scope.users = User.query({filter: 'owner-is-null'});
+        $q.all([$scope.owner.$promise, $scope.users.$promise]).then(function() {
+            if (!$scope.owner.userId) {
+                return $q.reject();
+            }
+            return User.get({id : $scope.owner.userId}).$promise;
+        }).then(function(user) {
+            $scope.users.push(user);
+        });
         $scope.todoitems = TODOItem.query();
         $scope.load = function(id) {
             Owner.get({id : id}, function(result) {

@@ -41,6 +41,7 @@
             <thead>
                 <tr>
                     <th translate="global.field.id">ID</th>
+                    <th translate="todoappApp.owner.name">Name</th>
                     <th translate="todoappApp.owner.user">user</th>
                     <th></th>
                 </tr>
@@ -48,8 +49,9 @@
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="owner in owners">
                     <td><a ui-sref="owner.detail({id:owner.id})">{{owner.id}}</a></td>
+                    <td>{{owner.name}}</td>
                     <td>
-                        {{owner.userLogin}}
+                        <a ui-sref="User.detail({id:owner.userId})">{{owner.userLogin}}</a>
                     </td>
                     <td>
                         <button type="submit"

@@ -45,6 +45,6 @@ angular.module('todoappApp')
         };
 
         $scope.clear = function () {
-            $scope.owner = {id: null};
+            $scope.owner = {name: null, id: null};
         };
     });
