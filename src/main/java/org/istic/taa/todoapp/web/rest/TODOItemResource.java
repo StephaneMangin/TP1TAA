@@ -3,11 +3,9 @@ package org.istic.taa.todoapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.istic.taa.todoapp.domain.Owner;
 import org.istic.taa.todoapp.domain.TODOItem;
-import org.istic.taa.todoapp.domain.User;
 import org.istic.taa.todoapp.repository.OwnerRepository;
 import org.istic.taa.todoapp.repository.TODOItemRepository;
 import org.istic.taa.todoapp.security.AuthoritiesConstants;
-import org.istic.taa.todoapp.service.UserService;
 import org.istic.taa.todoapp.web.rest.util.HeaderUtil;
 import org.istic.taa.todoapp.web.rest.util.PaginationUtil;
 import org.istic.taa.todoapp.web.rest.dto.TODOItemDTO;
@@ -27,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.naming.AuthenticationException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -96,6 +93,9 @@ public class TODOItemResource {
             return createTODOItem(tODOItemDTO);
         }
         TODOItem tODOItem = tODOItemMapper.tODOItemDTOToTODOItem(tODOItemDTO);
+        if (tODOItem.getOwner() != getCurrentOwner()) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         TODOItem result = tODOItemRepository.save(tODOItem);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("tODOItem", tODOItemDTO.getId().toString()))
@@ -113,7 +113,7 @@ public class TODOItemResource {
     @Transactional(readOnly = true)
     public ResponseEntity<List<TODOItemDTO>> getAllTODOItems(Pageable pageable)
         throws URISyntaxException {
-        Page<TODOItem> page = tODOItemRepository.findAllByOwner(getCurrentOwner(), pageable);
+            Page<TODOItem> page = tODOItemRepository.findAllByOwner(getCurrentOwner(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tODOItems");
         return new ResponseEntity<>(page.getContent().stream()
             .map(tODOItemMapper::tODOItemToTODOItemDTO)

@@ -1,5 +1,6 @@
 package org.istic.taa.todoapp.config;
 
+import org.istic.taa.todoapp.domain.User;
 import org.istic.taa.todoapp.security.*;
 import org.istic.taa.todoapp.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
@@ -16,16 +17,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -142,5 +149,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        User user = new User();
+        user.setLogin("test");
+        user.setPassword("test");
+        Set authorities = new HashSet<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("USER"));
+        user.setAuthorities(authorities);
+        UserDetails userDetails = (UserDetails) user;
+        return new InMemoryUserDetailsManager(Arrays.asList(userDetails));
     }
 }

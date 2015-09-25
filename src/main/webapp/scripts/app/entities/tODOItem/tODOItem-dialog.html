@@ -32,12 +32,12 @@
                     >
         </div>
 
-        <div class="form-group"  has-authority="ROLE_ADMIN">
+        <!--div class="form-group">
             <label translate="todoappApp.tODOItem.owner" for="field_owner">owner</label>
             <select class="form-control" id="field_owner" name="owner" ng-model="tODOItem.ownerId" ng-options="Owner.id as Owner.name for Owner in owners">
                 <option value=""></option>
             </select>
-        </div>
+        </div-->
         <div class="form-group">
             <label translate="todoappApp.tODOItem.sharedOwner" for="field_sharedOwner">sharedOwner</label>
             <select class="form-control" id="field_sharedOwner" multiple name="sharedOwner" ng-model="tODOItem.sharedOwners" ng-options="Owner as Owner.name for Owner in owners track by Owner.id"></select>
