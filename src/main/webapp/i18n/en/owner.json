@@ -15,9 +15,8 @@
             "detail": {
                 "title": "Owner"
             },
-            "name": "Name",
-            "tODOItem": "TODOItem",
-            "user": "User"
+            "user": "User",
+            "tODOItem": "TODOItem"
         }
     }
 }

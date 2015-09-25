@@ -22,15 +22,13 @@ public class Owner implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @OneToMany(mappedBy = "owner")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<TODOItem> tODOItems = new HashSet<>();
-
     @OneToOne
     private User user;
+
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<TODOItem> tODOItems = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -40,12 +38,12 @@ public class Owner implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<TODOItem> getTODOItems() {
@@ -54,14 +52,6 @@ public class Owner implements Serializable {
 
     public void setTODOItems(Set<TODOItem> tODOItems) {
         this.tODOItems = tODOItems;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     @Override
@@ -89,7 +79,6 @@ public class Owner implements Serializable {
     public String toString() {
         return "Owner{" +
                 "id=" + id +
-                ", name='" + name + "'" +
                 '}';
     }
 }

@@ -67,7 +67,7 @@ class OwnerGatlingTest extends Simulation {
             .exec(http("Create new owner")
             .post("/api/owners")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_owner_url")))
             .pause(10)

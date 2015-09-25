@@ -78,8 +78,8 @@ public class TODOItem implements Serializable {
         return owner;
     }
 
-    public void setOwner(Owner Owner) {
-        this.owner = Owner;
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     @Override

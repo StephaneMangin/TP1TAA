@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('todoappApp')
-    .controller('OwnerDetailController', function ($scope, $rootScope, $stateParams, entity, Owner, TODOItem, User) {
+    .controller('OwnerDetailController', function ($scope, $rootScope, $stateParams, entity, Owner, User, TODOItem) {
         $scope.owner = entity;
         $scope.load = function (id) {
             Owner.get({id: id}, function(result) {

@@ -2,30 +2,23 @@
     "relationships": [
         {
             "relationshipId": 1,
-            "relationshipName": "tODOItem",
-            "otherEntityName": "tODOItem",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "owner"
-        },
-        {
-            "relationshipId": 2,
             "relationshipName": "user",
             "otherEntityName": "user",
             "relationshipType": "one-to-one",
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "owner"
-        }
-    ],
-    "fields": [
+        },
         {
-            "fieldId": 1,
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": []
+            "relationshipId": 2,
+            "relationshipName": "tODOItem",
+            "otherEntityName": "tODOItem",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "owner"
         }
     ],
-    "changelogDate": "20150924182044",
+    "fields": [],
+    "changelogDate": "20150925090034",
     "dto": "no",
     "pagination": "infinite-scroll"
 }

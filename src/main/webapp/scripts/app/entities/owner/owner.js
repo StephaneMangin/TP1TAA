@@ -60,7 +60,7 @@ angular.module('todoappApp')
                         size: 'lg',
                         resolve: {
                             entity: function () {
-                                return {name: null, id: null};
+                                return {id: null};
                             }
                         }
                     }).result.then(function(result) {

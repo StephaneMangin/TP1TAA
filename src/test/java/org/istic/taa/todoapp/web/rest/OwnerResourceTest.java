@@ -41,8 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class OwnerResourceTest {
 
-    private static final String DEFAULT_NAME = "SAMPLE_TEXT";
-    private static final String UPDATED_NAME = "UPDATED_TEXT";
 
     @Inject
     private OwnerRepository ownerRepository;
@@ -70,7 +68,6 @@ public class OwnerResourceTest {
     @Before
     public void initTest() {
         owner = new Owner();
-        owner.setName(DEFAULT_NAME);
     }
 
     @Test
@@ -89,7 +86,6 @@ public class OwnerResourceTest {
         List<Owner> owners = ownerRepository.findAll();
         assertThat(owners).hasSize(databaseSizeBeforeCreate + 1);
         Owner testOwner = owners.get(owners.size() - 1);
-        assertThat(testOwner.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -102,8 +98,7 @@ public class OwnerResourceTest {
         restOwnerMockMvc.perform(get("/api/owners"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(owner.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+                .andExpect(jsonPath("$.[*].id").value(hasItem(owner.getId().intValue())));
     }
 
     @Test
@@ -116,8 +111,7 @@ public class OwnerResourceTest {
         restOwnerMockMvc.perform(get("/api/owners/{id}", owner.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.id").value(owner.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.id").value(owner.getId().intValue()));
     }
 
     @Test
@@ -137,7 +131,6 @@ public class OwnerResourceTest {
 		int databaseSizeBeforeUpdate = ownerRepository.findAll().size();
 
         // Update the owner
-        owner.setName(UPDATED_NAME);
         
 
         restOwnerMockMvc.perform(put("/api/owners")
@@ -149,7 +142,6 @@ public class OwnerResourceTest {
         List<Owner> owners = ownerRepository.findAll();
         assertThat(owners).hasSize(databaseSizeBeforeUpdate);
         Owner testOwner = owners.get(owners.size() - 1);
-        assertThat(testOwner.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test
