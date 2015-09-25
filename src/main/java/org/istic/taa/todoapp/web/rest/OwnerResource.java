@@ -3,6 +3,7 @@ package org.istic.taa.todoapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.istic.taa.todoapp.domain.Owner;
 import org.istic.taa.todoapp.repository.OwnerRepository;
+import org.istic.taa.todoapp.security.AuthoritiesConstants;
 import org.istic.taa.todoapp.web.rest.util.HeaderUtil;
 import org.istic.taa.todoapp.web.rest.util.PaginationUtil;
 import org.istic.taa.todoapp.web.rest.dto.OwnerDTO;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +47,7 @@ public class OwnerResource {
     /**
      * POST  /owners -> Create a new owner.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
     @RequestMapping(value = "/owners",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,6 +67,8 @@ public class OwnerResource {
     /**
      * PUT  /owners -> Updates an existing owner.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/owners",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -82,6 +88,7 @@ public class OwnerResource {
     /**
      * GET  /owners -> get all the owners.
      */
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/owners",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -99,6 +106,7 @@ public class OwnerResource {
     /**
      * GET  /owners/:id -> get the "id" owner.
      */
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/owners/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -116,6 +124,7 @@ public class OwnerResource {
     /**
      * DELETE  /owners/:id -> delete the "id" owner.
      */
+    @Secured(AuthoritiesConstants.ADMIN)
     @RequestMapping(value = "/owners/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
