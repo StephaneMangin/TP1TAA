@@ -43,8 +43,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-//@WithMockUser(value = "admin")
-//@WithUserDetails(value = "admin")
+@WithMockUser(value = "admin")
+@WithUserDetails(value = "admin")
 public class OwnerResourceTest {
 
     private static final String DEFAULT_NAME = "SAMPLE_TEXT";

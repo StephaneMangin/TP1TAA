@@ -50,8 +50,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-//@WithMockUser(value = "admin")
-//@WithUserDetails(value = "admin")
 public class AccountResourceTest {
 
     @Inject

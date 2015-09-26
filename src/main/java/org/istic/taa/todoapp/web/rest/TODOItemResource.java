@@ -1,8 +1,10 @@
 package org.istic.taa.todoapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import jdk.nashorn.internal.runtime.options.Option;
 import org.istic.taa.todoapp.domain.Owner;
 import org.istic.taa.todoapp.domain.TODOItem;
+import org.istic.taa.todoapp.domain.User;
 import org.istic.taa.todoapp.repository.OwnerRepository;
 import org.istic.taa.todoapp.repository.TODOItemRepository;
 import org.istic.taa.todoapp.security.AuthoritiesConstants;
@@ -21,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,18 +52,22 @@ public class TODOItemResource {
     @Inject
     private TODOItemMapper tODOItemMapper;
 
-    //private Owner getCurrentOwner() {
-    //    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    //    if (authentication != null) {
-    //        return ownerRepository.findOneByName(((UserDetails) authentication.getPrincipal()).getUsername()).get();
-    //    }
-    //    return null;
-    //}
+    private Owner getCurrentOwner() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            String username = authentication.getName();
+            Optional<Owner> owner = ownerRepository.findOneByName(username);
+            if (owner.isPresent()) {
+                return owner.get();
+            }
+        }
+        return null;
+    }
 
     /**
      * POST  /tODOItems -> Create a new tODOItem.
      */
-    //@Secured(AuthoritiesConstants.USER)
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/tODOItems",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +78,7 @@ public class TODOItemResource {
             return ResponseEntity.badRequest().header("Failure", "A new tODOItem cannot already have an ID").body(null);
         }
         TODOItem tODOItem = tODOItemMapper.tODOItemDTOToTODOItem(tODOItemDTO);
-        //tODOItem.setOwner(getCurrentOwner());
+        tODOItem.setOwner(getCurrentOwner());
         TODOItem result = tODOItemRepository.save(tODOItem);
         return ResponseEntity.created(new URI("/api/tODOItems/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("tODOItem", result.getId().toString()))
@@ -83,7 +88,7 @@ public class TODOItemResource {
     /**
      * PUT  /tODOItems -> Updates an existing tODOItem.
      */
-    //@Secured(AuthoritiesConstants.USER)
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/tODOItems",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -94,9 +99,6 @@ public class TODOItemResource {
             return createTODOItem(tODOItemDTO);
         }
         TODOItem tODOItem = tODOItemMapper.tODOItemDTOToTODOItem(tODOItemDTO);
-        //if (tODOItem.getOwner() != getCurrentOwner()) {
-        //    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        //}
         TODOItem result = tODOItemRepository.save(tODOItem);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("tODOItem", tODOItemDTO.getId().toString()))
@@ -106,7 +108,7 @@ public class TODOItemResource {
     /**
      * GET  /tODOItems -> get all the tODOItems.
      */
-    //@Secured(AuthoritiesConstants.USER)
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/tODOItems",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -114,8 +116,7 @@ public class TODOItemResource {
     @Transactional(readOnly = true)
     public ResponseEntity<List<TODOItemDTO>> getAllTODOItems(Pageable pageable)
         throws URISyntaxException {
-            //Page<TODOItem> page = tODOItemRepository.findAllByOwner(getCurrentOwner().getId(), pageable);
-            Page<TODOItem> page = tODOItemRepository.findAll(pageable);
+            Page<TODOItem> page = tODOItemRepository.findAllByOwner(getCurrentOwner(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tODOItems");
         return new ResponseEntity<>(page.getContent().stream()
             .map(tODOItemMapper::tODOItemToTODOItemDTO)
@@ -125,7 +126,7 @@ public class TODOItemResource {
     /**
      * GET  /tODOItems/:id -> get the "id" tODOItem.
      */
-    //@Secured(AuthoritiesConstants.USER)
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/tODOItems/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -143,16 +144,13 @@ public class TODOItemResource {
     /**
      * DELETE  /tODOItems/:id -> delete the "id" tODOItem.
      */
-    //@Secured(AuthoritiesConstants.USER)
+    @Secured(AuthoritiesConstants.USER)
     @RequestMapping(value = "/tODOItems/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteTODOItem(@PathVariable Long id) {
         log.debug("REST request to delete TODOItem : {}", id);
-        //if (tODOItemRepository.getOne(id).getOwner() != getCurrentOwner()) {
-        //    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        //}
         tODOItemRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("tODOItem", id.toString())).build();
     }

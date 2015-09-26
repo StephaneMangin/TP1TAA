@@ -26,16 +26,16 @@ public class TODOItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(name = "content")
     private String content;
-    
+
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonSerialize(using = CustomDateTimeSerializer.class)
     @JsonDeserialize(using = CustomDateTimeDeserializer.class)
     @Column(name = "end_date")
     private DateTime endDate;
-    
+
     @Column(name = "done")
     private Boolean done;
 
@@ -123,8 +123,10 @@ public class TODOItem implements Serializable {
         return "TODOItem{" +
                 "id=" + id +
                 ", content='" + content + "'" +
+                ", owner='" + owner + "'" +
                 ", endDate='" + endDate + "'" +
                 ", done='" + done + "'" +
+                ", sharedWith='" + sharedOwners + "'" +
                 '}';
     }
 }
