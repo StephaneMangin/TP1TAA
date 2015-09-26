@@ -7,6 +7,9 @@ jdk:
   - oraclejdk8
 node_js:
   - "0.12"
+branches:
+  only:
+    - master
 sudo: false
 before_install:
   - npm install -g grunt-cli bower
