@@ -1,4 +1,10 @@
-language: node_js
+language:
+  - java
+  - node_js
+java:
+  - "1.8"
+jdk:
+  - oraclejdk8
 node_js:
   - "0.12"
 sudo: false
