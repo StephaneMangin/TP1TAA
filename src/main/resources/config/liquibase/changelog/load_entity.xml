@@ -17,11 +17,25 @@
     <!--
         Added the entity Owner.
     -->
-    <changeSet id="20150925103734" author="stephane">
+    <changeSet id="users_load" author="stephane">
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/owners.csv"
                   separator=";"
                   tableName="OWNER"/>
+    </changeSet>
+    <changeSet id="todoitem_load" author="stephane">
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/todoitems.csv"
+                  separator=";"
+                  tableName="TODOITEM"/>
+    </changeSet>
+    <changeSet id="todoitem_shared_owner_load" author="stephane">
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/todoitem_shared_owner.csv"
+                  separator=";"
+                  tableName="TODOITEM_SHARED_OWNER"/>
     </changeSet>
 </databaseChangeLog>
