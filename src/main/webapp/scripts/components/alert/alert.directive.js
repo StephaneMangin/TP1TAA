@@ -7,7 +7,7 @@ angular.module('todoappApp')
             template: '<div class="alerts" ng-cloak="">' +
 			                '<alert ng-cloak="" ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
 			            '</div>',
-			controller: ['$scope', 
+			controller: ['$scope',
 	            function($scope) {
 	                $scope.alerts = AlertService.get();
 	                $scope.$on('$destroy', function () {
@@ -23,7 +23,7 @@ angular.module('todoappApp')
             template: '<div class="alerts" ng-cloak="">' +
 			                '<alert ng-cloak="" ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
 			            '</div>',
-			controller: ['$scope', 
+			controller: ['$scope',
 	            function($scope) {
 	                $scope.alerts = AlertService.get();
 
@@ -52,6 +52,10 @@ angular.module('todoappApp')
 					            }
 					            break;
 
+                            case 403:
+                                addErrorAlert("Forbidden. Maybe you don't have sufficient permissions.");
+                                break;
+
 					        default:
 					            if (httpResponse.data && httpResponse.data.message) {
 					                addErrorAlert(httpResponse.data.message);
@@ -68,10 +72,10 @@ angular.module('todoappApp')
 					});
 
 					var addErrorAlert = function (message, key, data) {
-						
+
 						key = key && key != null ? key : message;
-						AlertService.error(key, data); 
-						
+						AlertService.error(key, data);
+
 					}
 
 	            }

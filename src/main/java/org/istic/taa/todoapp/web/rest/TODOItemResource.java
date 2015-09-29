@@ -94,12 +94,22 @@ public class TODOItemResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<TODOItemDTO> updateTODOItem(@RequestBody TODOItemDTO tODOItemDTO) throws URISyntaxException {
+    public ResponseEntity updateTODOItem(@RequestBody TODOItemDTO tODOItemDTO) throws URISyntaxException {
         log.debug("REST request to update TODOItem : {}", tODOItemDTO);
         if (tODOItemDTO.getId() == null) {
             return createTODOItem(tODOItemDTO);
         }
         TODOItem tODOItem = tODOItemMapper.tODOItemDTOToTODOItem(tODOItemDTO);
+        if (getCurrentOwner() != tODOItem.getOwner()) {
+            return ResponseEntity.status(
+                HttpStatus.FORBIDDEN
+            ).headers(
+                HeaderUtil.createEntityUpdateAlert(
+                    "TODOItem",
+                    "You don't have the permission to edit this item !"
+                )
+            ).build();
+        }
         TODOItem result = tODOItemRepository.save(tODOItem);
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createEntityUpdateAlert("tODOItem", tODOItemDTO.getId().toString()))
@@ -152,6 +162,16 @@ public class TODOItemResource {
     @Timed
     public ResponseEntity<Void> deleteTODOItem(@PathVariable Long id) {
         log.debug("REST request to delete TODOItem : {}", id);
+        if (getCurrentOwner() != tODOItemRepository.getOne(id).getOwner()) {
+            return ResponseEntity.status(
+                HttpStatus.FORBIDDEN
+            ).headers(
+                HeaderUtil.createEntityDeletionAlert(
+                    "tODOItem",
+                    "You don't have the permission to delete this item !"
+                )
+            ).build();
+        }
         tODOItemRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("tODOItem", id.toString())).build();
     }
