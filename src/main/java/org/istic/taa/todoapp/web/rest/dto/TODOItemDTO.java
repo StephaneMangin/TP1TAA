@@ -23,6 +23,7 @@ public class TODOItemDTO implements Serializable {
     private Long ownerId;
 
     private String ownerName;
+
     private Set<OwnerDTO> sharedOwners = new HashSet<>();
 
     public Long getId() {
