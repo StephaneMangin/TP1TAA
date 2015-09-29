@@ -40,22 +40,26 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th translate="global.field.id">ID</th>
-                    <th translate="todoappApp.tODOItem.content">Content</th>
                     <th translate="todoappApp.tODOItem.endDate">EndDate</th>
                     <th translate="todoappApp.tODOItem.done">Done</th>
+                    <th translate="todoappApp.tODOItem.content">Content</th>
                     <th translate="todoappApp.tODOItem.owner">owner</th>
+                    <th translate="todoappApp.tODOItem.sharedOwner">Shared with</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="tODOItem in tODOItems">
-                    <td><a ui-sref="tODOItem.detail({id:tODOItem.id})">{{tODOItem.id}}</a></td>
-                    <td>{{tODOItem.content}}</td>
                     <td>{{tODOItem.endDate}}</td>
-                    <td>{{tODOItem.done}}</td>
+                    <td><span class="glyphicon glyphicon-check" ng-show="tODOItem.done"></span></td>
+                    <td>{{tODOItem.content}}</td>
                     <td>
-                        <a ui-sref="Owner.detail({id:tODOItem.ownerId})">{{tODOItem.ownerName}}</a>
+                        <a ui-sref="owner.detail({id:tODOItem.ownerId})">{{tODOItem.ownerName}}</a>
+                    </td>
+                    <td>
+                        <span ng-repeat="sharedOwner in tODOItem.sharedOwners">
+                            <a ui-sref="owner.detail({id:sharedOwner.id})">{{sharedOwner.name}}</a>
+                        </span>
                     </td>
                     <td>
                         <button type="submit"
