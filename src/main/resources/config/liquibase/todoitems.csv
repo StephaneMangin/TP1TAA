@@ -1,6 +1,6 @@
 id;owner_id;content;done
-1;4;blah blah;0
-2;3;blah blah;1
-3;3;blah blah;1
-4;4;blah blah;0
-5;3;blah blah;0
+1;1;"Je ne dois pas copier sur mes camarades en classe";0
+2;1;"Aller voir le spectacle d'Alexandre Astier";1
+3;2;"Faire une soupe miso";1
+4;2;"Partir au Japon avant d'être vieux... Hum";0
+5;2;"... J'ai oublié";0

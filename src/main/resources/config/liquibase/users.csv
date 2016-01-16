@@ -3,3 +3,6 @@ id;login;PASSWORD;first_name;last_name;email;activated;lang_key;created_by
 2;anonymous;$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO;Anonymous;User;anonymous@localhost;true;en;system
 3;admin;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;true;en;system
 4;user;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;true;en;system
+5;steven;$2a$10$Nl/40aSzA8g6p6H1ab3W7.46Yk/OSlHT1MvShBLtIAGy7N.ZaDc72;Steven;Seagall;steven@localhost;true;en;system
+6;oliver;$2a$10$0kp2XlJU92jdVaMJua4MsOA3d187ca5lfujasyRzZVcnaoYnXOVnG;Oliver;Twist;oliver@localhost;true;en;system
+7;maria;$2a$10$O0ZTxlkq800FkolYzxeO2uKRFtIqIDIoyG1arKaLKxFPBVsdxMsqG;Maria;Tchernenko;maria@localhost;false;fr;admin
