@@ -2,24 +2,24 @@
     "todoappApp": {
         "tODOItem" : {
             "home": {
-                "title": "TODOItems",
-                "createLabel": "Create a new TODOItem",
-                "createOrEditLabel": "Create or edit a TODOItem"
+                "title": "Tasks",
+                "createLabel": "Create a new task",
+                "createOrEditLabel": "Create or edit a task"
             },
-            "created": "A new TODOItem is created with identifier {{ param }}",
-            "updated": "A TODOItem is updated with identifier {{ param }}",
-            "deleted": "A TODOItem is deleted with identifier {{ param }}",
+            "created": "A new task is created with identifier {{ param }}",
+            "updated": "A task is updated with identifier {{ param }}",
+            "deleted": "A task is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete TODOItem {{ id }}?"
+                "question": "Are you sure you want to delete task {{ id }}?"
             },
             "detail": {
-                "title": "TODOItem"
+                "title": "Task"
             },
-            "content": "Content",
-            "endDate": "EndDate",
+            "content": "Description",
+            "endDate": "End date",
             "done": "Done",
             "owner": "Owner",
-            "sharedOwner": "SharedOwner"
+            "sharedOwner": "Shared to"
         }
     }
 }

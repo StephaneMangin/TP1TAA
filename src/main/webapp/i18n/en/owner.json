@@ -3,22 +3,22 @@
         "owner" : {
             "home": {
                 "title": "Owners",
-                "createLabel": "Create a new Owner",
-                "createOrEditLabel": "Create or edit a Owner"
+                "createLabel": "Create a new owner",
+                "createOrEditLabel": "Create or edit an owner"
             },
-            "created": "A new Owner is created with identifier {{ param }}",
-            "updated": "A Owner is updated with identifier {{ param }}",
-            "deleted": "A Owner is deleted with identifier {{ param }}",
+            "created": "A new owner is created with identifier {{ param }}",
+            "updated": "An owner is updated with identifier {{ param }}",
+            "deleted": "An owner is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Owner {{ id }}?"
+                "question": "Are you sure you want to delete owner {{ id }}?"
             },
             "detail": {
                 "title": "Owner"
             },
             "name": "Name",
-            "user": "User",
-            "todoItem": "TodoItem",
-            "sharedTodoItem": "SharedTodoItem"
+            "user": "Linked user",
+            "todoItem": "Task",
+            "sharedTodoItem": "Shared tasks"
         }
     }
 }
