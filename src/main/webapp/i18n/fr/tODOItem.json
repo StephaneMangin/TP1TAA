@@ -2,21 +2,21 @@
     "todoappApp": {
         "tODOItem" : {
             "home": {
-                "title": "TODOItems",
-                "createLabel": "Créer un nouveau TODOItem",
-                "createOrEditLabel": "Créer ou éditer un TODOItem"
+                "title": "Tâches",
+                "createLabel": "Créer une nouvelle tâche",
+                "createOrEditLabel": "Créer ou éditer une tâche"
             },
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le TODOItem {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la tâche {{ id }} ?"
             },
             "detail": {
-                "title": "TODOItem"
+                "title": "Tâche"
             },
-            "content": "Content",
-            "endDate": "EndDate",
-            "done": "Done",
-            "owner": "Owner",
-            "sharedOwner": "SharedOwner"
+            "content": "Description",
+            "endDate": "Date limite",
+            "done": "Effectuée",
+            "owner": "Propriétaire",
+            "sharedOwner": "Partagée avec"
         }
     }
 }

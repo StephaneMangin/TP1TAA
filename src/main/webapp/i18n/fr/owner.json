@@ -2,20 +2,20 @@
     "todoappApp": {
         "owner" : {
             "home": {
-                "title": "Owners",
-                "createLabel": "Créer un nouveau Owner",
-                "createOrEditLabel": "Créer ou éditer un Owner"
+                "title": "Usager",
+                "createLabel": "Créer un nouvel usager",
+                "createOrEditLabel": "Créer ou éditer un usager"
             },
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Owner {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer l'usager {{ id }} ?"
             },
             "detail": {
-                "title": "Owner"
+                "title": "Usager"
             },
-            "name": "Name",
-            "user": "User",
-            "todoItem": "TodoItem",
-            "sharedTodoItem": "SharedTodoItem"
+            "name": "Pseudonyme",
+            "user": "Utilisateur lié",
+            "todoItem": "Tâche",
+            "sharedTodoItem": "Tâches partagées"
         }
     }
 }

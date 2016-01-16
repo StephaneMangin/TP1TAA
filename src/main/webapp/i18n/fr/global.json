@@ -1,13 +1,13 @@
 {
     "global": {
-        "title": "TODOApp",
+        "title": "Gestion des tâches",
         "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
         "menu": {
             "home": "Accueil",
             "entities": {
                 "main": "Entités",
-                "tODOItem": "TODOItem",
-                "owner": "Owner",
+                "tODOItem": "Tâches",
+                "owner": "Usagers",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
