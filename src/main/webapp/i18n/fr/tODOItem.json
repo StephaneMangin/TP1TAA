@@ -6,6 +6,10 @@
                 "createLabel": "Créer une nouvelle tâche",
                 "createOrEditLabel": "Créer ou éditer une tâche"
             },
+            "created": "Une nouvelle tâche est créé avec l'identifiant {{ param }}",
+            "updated": "Une tâche est mise à jour avec l'identifiant {{ param }}",
+            "deleted": "Une tâche est supprimée avec l'identifiant {{ param }}",
+            "forbidden": "Vous n'avez pas la permission de modifier ou supprimer cette tâche {{ param }}",
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer la tâche {{ id }} ?"
             },

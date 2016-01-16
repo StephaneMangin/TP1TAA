@@ -6,6 +6,9 @@
                 "createLabel": "Créer un nouvel usager",
                 "createOrEditLabel": "Créer ou éditer un usager"
             },
+            "created": "Un nouvelle usager est créé avec l'identifiant {{ param }}",
+            "updated": "Un usager est modifié avec l'identifiant {{ param }}",
+            "deleted": "Un usager est supprimé avec l'identifiant {{ param }}",
             "delete": {
                 "question": "Etes-vous certain de vouloir supprimer l'usager {{ id }} ?"
             },

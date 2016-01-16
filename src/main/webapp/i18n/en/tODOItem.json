@@ -9,6 +9,7 @@
             "created": "A new task is created with identifier {{ param }}",
             "updated": "A task is updated with identifier {{ param }}",
             "deleted": "A task is deleted with identifier {{ param }}",
+            "forbidden": "You don't have the permission to edit or delete this task !{{ param }}",
             "delete": {
                 "question": "Are you sure you want to delete task {{ id }}?"
             },

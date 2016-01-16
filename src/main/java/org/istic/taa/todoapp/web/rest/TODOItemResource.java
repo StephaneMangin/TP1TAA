@@ -104,9 +104,9 @@ public class TODOItemResource {
             return ResponseEntity.status(
                 HttpStatus.FORBIDDEN
             ).headers(
-                HeaderUtil.createEntityUpdateAlert(
-                    "TODOItem",
-                    "You don't have the permission to edit this item !"
+                HeaderUtil.createEntityForbidden(
+                    "tODOItem",
+                    tODOItem.getId().toString()
                 )
             ).build();
         }
@@ -166,9 +166,9 @@ public class TODOItemResource {
             return ResponseEntity.status(
                 HttpStatus.FORBIDDEN
             ).headers(
-                HeaderUtil.createEntityDeletionAlert(
+                HeaderUtil.createEntityForbidden(
                     "tODOItem",
-                    "You don't have the permission to delete this item !"
+                    tODOItemRepository.getOne(id).getId().toString()
                 )
             ).build();
         }

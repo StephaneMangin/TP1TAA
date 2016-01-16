@@ -7,14 +7,18 @@ import org.springframework.http.HttpHeaders;
  *
  */
 public class HeaderUtil {
- 
+
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-todoappApp-alert", message);
         headers.add("X-todoappApp-params", param);
         return headers;
     }
-    
+
+    public static HttpHeaders createEntityForbidden(String entityName, String param) {
+        return createAlert("todoappApp." + entityName + ".forbidden", param);
+    }
+
     public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
         return createAlert("todoappApp." + entityName + ".created", param);
     }
