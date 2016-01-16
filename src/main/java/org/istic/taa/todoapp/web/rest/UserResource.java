@@ -63,9 +63,6 @@ public class UserResource {
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
-    private OwnerRepository ownerRepository;
-
-    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -87,10 +84,6 @@ public class UserResource {
             return ResponseEntity.badRequest().header("Failure", "A new user cannot already have an ID").body(null);
         }
         User result = userRepository.save(user);
-        Owner owner = new Owner();
-        owner.setUser(user);
-        owner.setName(user.getLogin());
-        ownerRepository.save(owner);
         return ResponseEntity.created(new URI("/api/users/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("user", result.getId().toString()))
                 .body(result);
@@ -120,8 +113,6 @@ public class UserResource {
                 managedUserDTO.getAuthorities().stream().forEach(
                     authority -> authorities.add(authorityRepository.findOne(authority))
                 );
-                Owner owner = ownerRepository.findOneByUserId(managedUserDTO.getId()).get();
-                owner.setName(managedUserDTO.getLogin());
                 return ResponseEntity.ok()
                     .headers(HeaderUtil.createEntityUpdateAlert("user", managedUserDTO.getLogin()))
                     .body(new ManagedUserDTO(userRepository

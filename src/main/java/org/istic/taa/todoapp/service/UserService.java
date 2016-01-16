@@ -46,7 +46,7 @@ public class UserService {
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
-        userRepository.findOneByActivationKey(key)
+        return userRepository.findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
                 user.setActivated(true);
@@ -55,7 +55,6 @@ public class UserService {
                 log.debug("Activated user: {}", user);
                 return user;
             });
-        return Optional.empty();
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
@@ -77,7 +76,7 @@ public class UserService {
 
     public Optional<User> requestPasswordReset(String mail) {
        return userRepository.findOneByEmail(mail)
-           .filter(user -> user.getActivated() == true)
+           .filter(user -> user.getActivated())
            .map(user -> {
                user.setResetKey(RandomUtil.generateResetKey());
                user.setResetDate(DateTime.now());
