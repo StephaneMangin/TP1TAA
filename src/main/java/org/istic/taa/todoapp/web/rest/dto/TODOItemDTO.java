@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 
 /**
@@ -75,6 +76,7 @@ public class TODOItemDTO implements Serializable {
     }
 
     public Set<OwnerDTO> getSharedOwners() {
+        sharedOwners.removeIf((OwnerDTO ownerDTO) -> ownerDTO.getId().equals(getOwnerId()));
         return sharedOwners;
     }
 
