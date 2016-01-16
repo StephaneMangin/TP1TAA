@@ -81,6 +81,7 @@ public class TODOItemDTO implements Serializable {
     }
 
     public void setSharedOwners(Set<OwnerDTO> Owners) {
+        sharedOwners.removeIf((OwnerDTO ownerDTO) -> ownerDTO.getId().equals(getOwnerId()));
         this.sharedOwners = Owners;
     }
 
