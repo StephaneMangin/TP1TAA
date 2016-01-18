@@ -10,10 +10,10 @@ spring:
     datasource:
         dataSourceClassName: org.h2.jdbcx.JdbcDataSource
         url: jdbc:h2:mem:jhipster;DB_CLOSE_DELAY=-1
-        databaseName: 
-        serverName: 
-        username: 
-        password: 
+        databaseName:
+        serverName:
+        username:
+        password:
 
     jpa:
         database-platform: org.istic.taa.todoapp.domain.util.FixedH2Dialect

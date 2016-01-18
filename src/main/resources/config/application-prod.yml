@@ -9,11 +9,11 @@ spring:
         active: prod
     datasource:
         dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
-        url: 
+        url:
         databaseName: TODOApp
         serverName: localhost
         username: TODOApp
-        password: 
+        password: 123456789abc
 
     jpa:
         database-platform: org.istic.taa.todoapp.domain.util.FixedPostgreSQL82Dialect

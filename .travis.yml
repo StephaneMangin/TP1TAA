@@ -13,17 +13,20 @@ branches:
 sudo: required
 before_install:
   - sudo apt-get install -y python-pip
-  - sudo pip install docker-compose
+  - pip install docker-compose
+  - docker-compose stop
+  - docker-compose rm -f postgres
+  - docker-compose rm -f service
+  - docker-compose rm -f interlock
   - npm install -g npm
   - npm install -g grunt-cli bower
   - bower install
   - npm install
 install:
-  - mvn clean package
+  - mvn clean package -p prod
 after_install:
   - docker-compose up -d
-  - docker-compose scale service_instance=3
-  - docker-compose scale database=3
+  - docker-compose scale service=3
 before_script:
   - grunt build
 notifications:

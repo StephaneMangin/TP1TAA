@@ -5,30 +5,23 @@ interlock:
         - "80:80"
     volumes:
         - /var/lib/docker:/etc/docker
- command: "--swarm-url tcp://<SWARM_MASTER_IP>:3375 --debug --plugin haproxy start"
+    command: "--swarm-url tcp://<SWARM_MASTER_IP>:3375 --debug --plugin haproxy start"
 
-mysql:
-    image: mysql
-    container_name: mysql
+postgres:
+    image: postgres
     ports:
-        - "3306:3306"
+        - "5432:5432"
     environment:
-        - MYSQL_ROOT_PASSWORD=123456789abc
+        - POSTGRES_PASSWORD=123456789abc
+        - POSTGRES_USER=TODOApp
 
 service:
     image: taa_tp/todoapp
+    volumes:
+        - target
     expose:
         - "8080"
     links:
-        - mysql
+        - postgres
     environment:
     - VIRTUAL_HOST=org.istic.taa.totoapp.service
-
-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-        - "80:80"
-    links:
-        - service
-    volumes:
-        - /var/run/docker.sock:/tmp/docker.sock:ro
