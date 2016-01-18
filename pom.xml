@@ -9,18 +9,20 @@
         <relativePath />
     </parent>
 
-    <groupId>org.istic.taa.todoapp</groupId>
+    <groupId>org.istic.taa</groupId>
     <artifactId>todoapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>TODOApp</name>
 
+
     <prerequisites>
         <maven>3.0.0</maven>
     </prerequisites>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <assertj-core.version>3.1.0</assertj-core.version>
         <awaitility.version>1.4.0</awaitility.version>
         <commons-io.version>2.4</commons-io.version>
@@ -64,6 +66,7 @@
         <spring-security.version>4.0.2.RELEASE</spring-security.version>
         <springfox.version>2.0.3</springfox.version>
         <usertype-core.version>4.0.0.GA</usertype-core.version>
+        <docker.image.prefix>taa_tp</docker.image.prefix>
 
     </properties>
 
@@ -585,6 +588,31 @@
                         <argument>--spring.profiles.active=dev</argument>
                     </arguments>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.2.3</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

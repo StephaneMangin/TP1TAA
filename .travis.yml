@@ -10,13 +10,20 @@ node_js:
 branches:
   only:
     - master
-sudo: false
+sudo: required
 before_install:
+  - sudo apt-get install -y docker-engine
+  - sudo service docker start
+  - sudo apt-get install -y docker-compose
+  - npm install -g npm
   - npm install -g grunt-cli bower
   - bower install
   - npm install
-install: mvn clean install
-before_script: grunt build
+  - docker-compose up -d
+install:
+  - mvn clean package
+before_script:
+  - grunt build
 notifications:
   webhooks:
     on_success: change  # options: [always|never|change] default: always
