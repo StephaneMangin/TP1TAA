@@ -12,7 +12,6 @@ branches:
     - master
 sudo: required
 before_install:
-  - sudo apt-get install -y python-pip
   - pip install docker-compose
   - docker-compose stop
   - docker-compose rm -f postgres
