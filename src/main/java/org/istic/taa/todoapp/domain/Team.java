@@ -11,12 +11,12 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Owner.
+ * A Team.
  */
 @Entity
-@Table(name = "OWNER")
+@Table(name = "TEAM")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Owner implements Serializable {
+public class Team implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,18 +25,10 @@ public class Owner implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    private User user;
-
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "team")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Task> todoItems = new HashSet<>();
-
-    @ManyToMany(mappedBy = "sharedOwners")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Task> sharedTodoItems = new HashSet<>();
+    private Set<Task> tasks = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -54,28 +46,12 @@ public class Owner implements Serializable {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public void setUser(User User) {
-        this.user = User;
-    }
-
-    public Set<Task> getTodoItems() {
-        return todoItems;
-    }
-
-    public void setTodoItems(Set<Task> Tasks) {
-        this.todoItems = Tasks;
-    }
-
-    public Set<Task> getSharedTodoItems() {
-        return sharedTodoItems;
-    }
-
-    public void setSharedTodoItems(Set<Task> Tasks) {
-        this.sharedTodoItems = Tasks;
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
@@ -87,9 +63,9 @@ public class Owner implements Serializable {
             return false;
         }
 
-        Owner owner = (Owner) o;
+        Team team = (Team) o;
 
-        if ( ! Objects.equals(id, owner.id)) return false;
+        if ( ! Objects.equals(id, team.id)) return false;
 
         return true;
     }
@@ -101,10 +77,9 @@ public class Owner implements Serializable {
 
     @Override
     public String toString() {
-        return "Owner{" +
+        return "Team{" +
                 "id=" + id +
                 ", name='" + name + "'" +
-                ", user='" + user + "'" +
                 '}';
     }
 }

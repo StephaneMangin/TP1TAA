@@ -16,12 +16,12 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A TODOItem.
+ * A Task.
  */
 @Entity
 @Table(name = "TODOITEM")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class TODOItem implements Serializable {
+public class Task implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -106,9 +106,9 @@ public class TODOItem implements Serializable {
             return false;
         }
 
-        TODOItem tODOItem = (TODOItem) o;
+        Task task = (Task) o;
 
-        if ( ! Objects.equals(id, tODOItem.id)) return false;
+        if ( ! Objects.equals(id, task.id)) return false;
 
         return true;
     }
@@ -120,7 +120,7 @@ public class TODOItem implements Serializable {
 
     @Override
     public String toString() {
-        return "TODOItem{" +
+        return "Task{" +
                 "id=" + id +
                 ", content='" + content + "'" +
                 ", owner='" + owner + "'" +
