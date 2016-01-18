@@ -22,7 +22,7 @@ before_install:
   - bower install
   - npm install
 install:
-  - mvn clean package -p prod
+  - mvn clean package -DskipTests -Pprod
 after_install:
   - docker-compose up -d
   - docker-compose scale service=3
