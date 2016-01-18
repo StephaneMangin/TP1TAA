@@ -2,9 +2,11 @@ package org.istic.taa.todoapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import jdk.nashorn.internal.runtime.options.Option;
+import org.istic.taa.todoapp.domain.Authority;
 import org.istic.taa.todoapp.domain.Owner;
 import org.istic.taa.todoapp.domain.Task;
 import org.istic.taa.todoapp.domain.User;
+import org.istic.taa.todoapp.repository.AuthorityRepository;
 import org.istic.taa.todoapp.repository.OwnerRepository;
 import org.istic.taa.todoapp.repository.TaskRepository;
 import org.istic.taa.todoapp.security.AuthoritiesConstants;
@@ -23,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.CredentialsContainer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +53,9 @@ public class TaskResource {
 
     @Inject
     private TaskRepository taskRepository;
+
+    @Inject
+    private AuthorityRepository authorityRepository;
 
     @Inject
     private TaskMapper taskMapper;
@@ -127,7 +134,14 @@ public class TaskResource {
     @Transactional(readOnly = true)
     public ResponseEntity<List<TaskDTO>> getAllTasks(Pageable pageable)
         throws URISyntaxException {
-            Page<Task> page = taskRepository.findAllByOwnerAndSharedOwners(getCurrentOwner(), pageable);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Page<Task> page = null;
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            page = taskRepository.findAll(pageable);
+        } else {
+            page = taskRepository.findAllByOwnerAndSharedOwners(getCurrentOwner(), pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tasks");
         return new ResponseEntity<>(page.getContent().stream()
             .map(taskMapper::taskToTaskDTO)
