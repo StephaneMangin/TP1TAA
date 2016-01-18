@@ -45,7 +45,7 @@ public class UserToOwnerAspect {
         if (option.isPresent()) {
             User user = option.get();
             log.debug("owner created for user " + user.getLogin());
-            if (user != null && !ownerRepository.findOneByName(user.getLogin()).isPresent()) {
+            if (!ownerRepository.findOneByName(user.getLogin()).isPresent()) {
                 Owner owner = new Owner();
                 owner.setName(user.getLogin());
                 owner.setUser(user);

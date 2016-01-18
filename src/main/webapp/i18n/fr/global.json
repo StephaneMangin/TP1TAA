@@ -8,6 +8,7 @@
                 "main": "Entités",
                 "tODOItem": "Tâches",
                 "owner": "Usagers",
+                "team": "Team",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
