@@ -12,16 +12,18 @@ branches:
     - master
 sudo: required
 before_install:
-  - sudo apt-get install -y docker-engine
-  - sudo service docker start
-  - sudo apt-get install -y docker-compose
+  - sudo apt-get install -y python-pip
+  - sudo pip install docker-compose
   - npm install -g npm
   - npm install -g grunt-cli bower
   - bower install
   - npm install
-  - docker-compose up -d
 install:
   - mvn clean package
+after_install:
+  - docker-compose up -d
+  - docker-compose scale service_instance=3
+  - docker-compose scale database=3
 before_script:
   - grunt build
 notifications:
