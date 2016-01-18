@@ -31,12 +31,12 @@ public class Owner implements Serializable {
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Task> todoItems = new HashSet<>();
+    private Set<Task> tasks = new HashSet<>();
 
     @ManyToMany(mappedBy = "sharedOwners")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Task> sharedTodoItems = new HashSet<>();
+    private Set<Task> sharedTasks = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -62,20 +62,20 @@ public class Owner implements Serializable {
         this.user = User;
     }
 
-    public Set<Task> getTodoItems() {
-        return todoItems;
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public void setTodoItems(Set<Task> Tasks) {
-        this.todoItems = Tasks;
+    public void setTasks(Set<Task> Tasks) {
+        this.tasks = Tasks;
     }
 
-    public Set<Task> getSharedTodoItems() {
-        return sharedTodoItems;
+    public Set<Task> getSharedTasks() {
+        return sharedTasks;
     }
 
-    public void setSharedTodoItems(Set<Task> Tasks) {
-        this.sharedTodoItems = Tasks;
+    public void setSharedTasks(Set<Task> Tasks) {
+        this.sharedTasks = Tasks;
     }
 
     @Override

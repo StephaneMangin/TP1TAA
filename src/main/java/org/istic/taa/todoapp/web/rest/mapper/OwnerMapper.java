@@ -16,8 +16,8 @@ public interface OwnerMapper {
     OwnerDTO ownerToOwnerDTO(Owner owner);
 
     @Mapping(source = "userId", target = "user")
-    @Mapping(target = "todoItems", ignore = true)
-    @Mapping(target = "sharedTodoItems", ignore = true)
+    @Mapping(target = "tasks", ignore = true)
+    @Mapping(target = "sharedTasks", ignore = true)
     Owner ownerDTOToOwner(OwnerDTO ownerDTO);
 
     default User UserFromId(Long id) {

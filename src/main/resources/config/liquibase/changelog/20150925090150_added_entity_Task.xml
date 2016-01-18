@@ -15,10 +15,10 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity TODOItem.
+        Added the entity Task.
     -->
     <changeSet id="20150925090150" author="jhipster">
-        <createTable tableName="TODOITEM">
+        <createTable tableName="TASK">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -27,37 +27,37 @@
             <column name="done" type="bit"/>
             <column name="owner_id" type="bigint"/>
         </createTable>
-        <dropDefaultValue tableName="TODOITEM" columnName="end_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="TASK" columnName="end_date" columnDataType="datetime"/>
 
-        
+
         <addForeignKeyConstraint baseColumnNames="owner_id"
-                                 baseTableName="TODOITEM"
-                                 constraintName="fk_todoitem_owner_id"
+                                 baseTableName="TASK"
+                                 constraintName="fk_task_owner_id"
                                  referencedColumnNames="id"
                                  referencedTableName="OWNER"/>
 
-        <createTable tableName="TODOITEM_SHARED_OWNER">
+        <createTable tableName="TASK_SHARED_OWNER">
             <column name="shared_owners_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="todoitems_id" type="bigint">
+            <column name="tasks_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="todoitems_id, shared_owners_id" tableName="TODOITEM_SHARED_OWNER"/>
+        <addPrimaryKey columnNames="tasks_id, shared_owners_id" tableName="TASK_SHARED_OWNER"/>
 
-        <addForeignKeyConstraint baseColumnNames="todoitems_id"
-                                 baseTableName="TODOITEM_SHARED_OWNER"
-                                 constraintName="fk_todoitem_sharedowner_owner_id"
+        <addForeignKeyConstraint baseColumnNames="tasks_id"
+                                 baseTableName="TASK_SHARED_OWNER"
+                                 constraintName="fk_task_sharedowner_owner_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="TODOITEM"/>
+                                 referencedTableName="TASK"/>
 
         <addForeignKeyConstraint baseColumnNames="shared_owners_id"
-                                 baseTableName="TODOITEM_SHARED_OWNER"
-                                 constraintName="fk_owner_sharedowner_todoitem_id"
+                                 baseTableName="TASK_SHARED_OWNER"
+                                 constraintName="fk_owner_sharedowner_task_id"
                                  referencedColumnNames="id"
                                  referencedTableName="OWNER"/>
-        
+
     </changeSet>
 </databaseChangeLog>

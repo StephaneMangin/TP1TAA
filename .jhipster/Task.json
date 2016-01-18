@@ -14,7 +14,7 @@
             "relationshipType": "many-to-many",
             "otherEntityField": "name",
             "ownerSide": true,
-            "otherEntityRelationshipName": "sharedTodoItem"
+            "otherEntityRelationshipName": "sharedTask"
         }
     ],
     "fields": [

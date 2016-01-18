@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('todoappApp')
-    .factory('TODOItem', function ($resource, DateUtils) {
-        return $resource('api/tODOItems/:id', {}, {
+    .factory('Task', function ($resource, DateUtils) {
+        return $resource('api/tasks/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

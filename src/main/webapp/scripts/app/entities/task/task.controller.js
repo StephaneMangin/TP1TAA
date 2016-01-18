@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('todoappApp')
-    .controller('TODOItemController', function ($scope, TODOItem, ParseLinks) {
-        $scope.tODOItems = [];
+    .controller('TaskController', function ($scope, Task, ParseLinks) {
+        $scope.tasks = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-            TODOItem.query({page: $scope.page, size: 20}, function(result, headers) {
+            Task.query({page: $scope.page, size: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
-                    $scope.tODOItems.push(result[i]);
+                    $scope.tasks.push(result[i]);
                 }
             });
         };
         $scope.reset = function() {
             $scope.page = 0;
-            $scope.tODOItems = [];
+            $scope.tasks = [];
             $scope.loadAll();
         };
         $scope.loadPage = function(page) {
@@ -24,17 +24,17 @@ angular.module('todoappApp')
         $scope.loadAll();
 
         $scope.delete = function (id) {
-            TODOItem.get({id: id}, function(result) {
-                $scope.tODOItem = result;
-                $('#deleteTODOItemConfirmation').modal('show');
+            Task.get({id: id}, function(result) {
+                $scope.task = result;
+                $('#deleteTaskConfirmation').modal('show');
             });
         };
 
         $scope.confirmDelete = function (id) {
-            TODOItem.delete({id: id},
+            Task.delete({id: id},
                 function () {
                     $scope.reset();
-                    $('#deleteTODOItemConfirmation').modal('hide');
+                    $('#deleteTaskConfirmation').modal('hide');
                     $scope.clear();
                 });
         };
@@ -45,6 +45,6 @@ angular.module('todoappApp')
         };
 
         $scope.clear = function () {
-            $scope.tODOItem = {content: null, endDate: null, done: null, id: null};
+            $scope.task = {content: null, endDate: null, done: null, id: null};
         };
     });

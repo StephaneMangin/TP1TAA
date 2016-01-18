@@ -6,7 +6,7 @@
             "home": "Home",
             "entities": {
                 "main": "Entities",
-                "tODOItem": "TODOItem",
+                "task": "Task",
                 "owner": "Owner",
                 "team": "Team",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"

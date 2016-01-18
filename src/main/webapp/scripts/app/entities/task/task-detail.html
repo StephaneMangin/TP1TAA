@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="todoappApp.tODOItem.detail.title">TODOItem</span> {{tODOItem.id}}</h2>
+    <h2><span translate="todoappApp.task.detail.title">Task</span> {{task.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,42 +12,42 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="todoappApp.tODOItem.content">Content</span>
+                    <span translate="todoappApp.task.content">Content</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{tODOItem.content}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="todoappApp.tODOItem.endDate">EndDate</span>
-                </td>
-                <td>
-                    <span class="form-control-static">{{tODOItem.endDate}}</span>
+                    <span class="form-control-static">{{task.content}}</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="todoappApp.tODOItem.done">Done</span>
+                    <span translate="todoappApp.task.endDate">EndDate</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{tODOItem.done}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="todoappApp.tODOItem.owner">owner</span>
-                </td>
-                <td>
-                    <a class="form-control-static" ui-sref="owner.detail({id:tODOItem.ownerId})">{{tODOItem.ownerName}}</a>
+                    <span class="form-control-static">{{task.endDate}}</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="todoappApp.tODOItem.sharedOwner">sharedOwner</span>
+                    <span translate="todoappApp.task.done">Done</span>
                 </td>
                 <td>
-                    <span ng-repeat="sharedOwner in tODOItem.sharedOwners">
+                    <span class="form-control-static">{{task.done}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="todoappApp.task.owner">owner</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="owner.detail({id:task.ownerId})">{{task.ownerName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="todoappApp.task.sharedOwner">sharedOwner</span>
+                </td>
+                <td>
+                    <span ng-repeat="sharedOwner in task.sharedOwners">
                         <a class="form-control-static" ui-sref="owner.detail({id: {{sharedOwner.id}}})">{{sharedOwner.name}}</a>{{$last ? '' : ', '}}
                     <span>
                 </td>

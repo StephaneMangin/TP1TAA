@@ -24,18 +24,18 @@
                   separator=";"
                   tableName="OWNER"/>
     </changeSet>
-    <changeSet id="todoitem_load" author="stephane">
+    <changeSet id="task_load" author="stephane">
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/todoitems.csv"
+                  file="config/liquibase/tasks.csv"
                   separator=";"
-                  tableName="TODOITEM"/>
+                  tableName="TASK"/>
     </changeSet>
-    <changeSet id="todoitem_shared_owner_load" author="stephane">
+    <changeSet id="task_shared_owner_load" author="stephane">
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/todoitem_shared_owner.csv"
+                  file="config/liquibase/task_shared_owner.csv"
                   separator=";"
-                  tableName="TODOITEM_SHARED_OWNER"/>
+                  tableName="TASK_SHARED_OWNER"/>
     </changeSet>
 </databaseChangeLog>

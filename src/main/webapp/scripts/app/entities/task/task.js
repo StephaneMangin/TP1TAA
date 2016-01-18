@@ -3,60 +3,60 @@
 angular.module('todoappApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('tODOItem', {
+            .state('task', {
                 parent: 'entity',
-                url: '/tODOItems',
+                url: '/tasks',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'todoappApp.tODOItem.home.title'
+                    pageTitle: 'todoappApp.task.home.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/tODOItem/tODOItems.html',
-                        controller: 'TODOItemController'
+                        templateUrl: 'scripts/app/entities/task/tasks.html',
+                        controller: 'TaskController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('tODOItem');
+                        $translatePartialLoader.addPart('task');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }]
                 }
             })
-            .state('tODOItem.detail', {
+            .state('task.detail', {
                 parent: 'entity',
-                url: '/tODOItem/{id}',
+                url: '/task/{id}',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'todoappApp.tODOItem.detail.title'
+                    pageTitle: 'todoappApp.task.detail.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/tODOItem/tODOItem-detail.html',
-                        controller: 'TODOItemDetailController'
+                        templateUrl: 'scripts/app/entities/task/task-detail.html',
+                        controller: 'TaskDetailController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('tODOItem');
+                        $translatePartialLoader.addPart('task');
                         return $translate.refresh();
                     }],
-                    entity: ['$stateParams', 'TODOItem', function($stateParams, TODOItem) {
-                        return TODOItem.get({id : $stateParams.id});
+                    entity: ['$stateParams', 'Task', function($stateParams, Task) {
+                        return Task.get({id : $stateParams.id});
                     }]
                 }
             })
-            .state('tODOItem.new', {
-                parent: 'tODOItem',
+            .state('task.new', {
+                parent: 'task',
                 url: '/new',
                 data: {
                     authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
-                        templateUrl: 'scripts/app/entities/tODOItem/tODOItem-dialog.html',
-                        controller: 'TODOItemDialogController',
+                        templateUrl: 'scripts/app/entities/task/task-dialog.html',
+                        controller: 'TaskDialogController',
                         size: 'lg',
                         resolve: {
                             entity: function () {
@@ -64,30 +64,30 @@ angular.module('todoappApp')
                             }
                         }
                     }).result.then(function(result) {
-                        $state.go('tODOItem', null, { reload: true });
+                        $state.go('task', null, { reload: true });
                     }, function() {
-                        $state.go('tODOItem');
+                        $state.go('task');
                     })
                 }]
             })
-            .state('tODOItem.edit', {
-                parent: 'tODOItem',
+            .state('task.edit', {
+                parent: 'task',
                 url: '/{id}/edit',
                 data: {
                     authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
-                        templateUrl: 'scripts/app/entities/tODOItem/tODOItem-dialog.html',
-                        controller: 'TODOItemDialogController',
+                        templateUrl: 'scripts/app/entities/task/task-dialog.html',
+                        controller: 'TaskDialogController',
                         size: 'lg',
                         resolve: {
-                            entity: ['TODOItem', function(TODOItem) {
-                                return TODOItem.get({id : $stateParams.id});
+                            entity: ['Task', function(Task) {
+                                return Task.get({id : $stateParams.id});
                             }]
                         }
                     }).result.then(function(result) {
-                        $state.go('tODOItem', null, { reload: true });
+                        $state.go('task', null, { reload: true });
                     }, function() {
                         $state.go('^');
                     })

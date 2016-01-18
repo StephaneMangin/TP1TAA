@@ -11,14 +11,14 @@
         },
         {
             "relationshipId": 2,
-            "relationshipName": "todoItem",
+            "relationshipName": "task",
             "otherEntityName": "",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "owner"
         },
         {
             "relationshipId": 3,
-            "relationshipName": "sharedTodoItem",
+            "relationshipName": "sharedTask",
             "otherEntityName": "",
             "relationshipType": "many-to-many",
             "otherEntityField": "id",

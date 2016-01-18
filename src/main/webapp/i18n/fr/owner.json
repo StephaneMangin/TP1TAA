@@ -17,8 +17,8 @@
             },
             "name": "Pseudonyme",
             "user": "Utilisateur lié",
-            "todoItem": "Tâche",
-            "sharedTodoItem": "Tâches partagées"
+            "task": "Tâche",
+            "sharedTask": "Tâches partagées"
         }
     }
 }

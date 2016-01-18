@@ -17,8 +17,8 @@
             },
             "name": "Name",
             "user": "Linked user",
-            "todoItem": "Task",
-            "sharedTodoItem": "Shared tasks"
+            "task": "Task",
+            "sharedTask": "Shared tasks"
         }
     }
 }

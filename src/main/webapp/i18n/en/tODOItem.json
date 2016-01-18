@@ -1,6 +1,6 @@
 {
     "todoappApp": {
-        "tODOItem" : {
+        "task" : {
             "home": {
                 "title": "Tasks",
                 "createLabel": "Create a new task",

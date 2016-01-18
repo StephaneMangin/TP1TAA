@@ -90,7 +90,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "owner")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<TODOItem> todoItems = new HashSet<>();
+    private Set<Task> tasks = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -196,12 +196,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
-    public Set<TODOItem> getTodoItems() {
-        return todoItems;
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public void setTodoItems(Set<TODOItem> todoItems) {
-        this.todoItems = todoItems;
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

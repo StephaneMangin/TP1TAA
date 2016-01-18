@@ -1,10 +1,10 @@
 package org.istic.taa.todoapp.web.rest;
 
 import org.istic.taa.todoapp.Application;
-import org.istic.taa.todoapp.domain.TODOItem;
-import org.istic.taa.todoapp.repository.TODOItemRepository;
-import org.istic.taa.todoapp.web.rest.dto.TODOItemDTO;
-import org.istic.taa.todoapp.web.rest.mapper.TODOItemMapper;
+import org.istic.taa.todoapp.domain.Task;
+import org.istic.taa.todoapp.repository.TaskRepository;
+import org.istic.taa.todoapp.web.rest.dto.TaskDTO;
+import org.istic.taa.todoapp.web.rest.mapper.TaskMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,9 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 /**
- * Test class for the TODOItemResource REST controller.
+ * Test class for the TaskResource REST controller.
  *
- * @see TODOItemResource
+ * @see TaskResource
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -50,7 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 @WithMockUser(value = "admin")
 @WithUserDetails(value = "admin")
-public class TODOItemResourceTest {
+public class TaskResourceTest {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -65,10 +65,10 @@ public class TODOItemResourceTest {
     private static final Boolean UPDATED_DONE = true;
 
     @Inject
-    private TODOItemRepository tODOItemRepository;
+    private TaskRepository taskRepository;
 
     @Inject
-    private TODOItemMapper tODOItemMapper;
+    private TaskMapper taskMapper;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -76,62 +76,62 @@ public class TODOItemResourceTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
-    private MockMvc restTODOItemMockMvc;
+    private MockMvc restTaskMockMvc;
 
-    private TODOItem tODOItem;
+    private Task task;
 
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        TODOItemResource tODOItemResource = new TODOItemResource();
-        ReflectionTestUtils.setField(tODOItemResource, "tODOItemRepository", tODOItemRepository);
-        ReflectionTestUtils.setField(tODOItemResource, "tODOItemMapper", tODOItemMapper);
-        this.restTODOItemMockMvc = MockMvcBuilders.standaloneSetup(tODOItemResource)
+        TaskResource taskResource = new TaskResource();
+        ReflectionTestUtils.setField(taskResource, "taskRepository", taskRepository);
+        ReflectionTestUtils.setField(taskResource, "taskMapper", taskMapper);
+        this.restTaskMockMvc = MockMvcBuilders.standaloneSetup(taskResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
     public void initTest() {
-        tODOItem = new TODOItem();
-        tODOItem.setContent(DEFAULT_CONTENT);
-        tODOItem.setEndDate(DEFAULT_END_DATE);
-        tODOItem.setDone(DEFAULT_DONE);
+        task = new Task();
+        task.setContent(DEFAULT_CONTENT);
+        task.setEndDate(DEFAULT_END_DATE);
+        task.setDone(DEFAULT_DONE);
     }
 
     @Test
     @Transactional
-    public void createTODOItem() throws Exception {
-        int databaseSizeBeforeCreate = tODOItemRepository.findAll().size();
+    public void createTask() throws Exception {
+        int databaseSizeBeforeCreate = taskRepository.findAll().size();
 
-        // Create the TODOItem
-        TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
+        // Create the Task
+        TaskDTO taskDTO = taskMapper.taskToTaskDTO(task);
 
-    //    restTODOItemMockMvc.perform(post("/api/tODOItems")
+    //    restTaskMockMvc.perform(post("/api/tasks")
     //            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-    //            .content(TestUtil.convertObjectToJsonBytes(tODOItemDTO)))
+    //            .content(TestUtil.convertObjectToJsonBytes(taskDTO)))
     //            .andExpect(status().isCreated());
 
-    //    // Validate the TODOItem in the database
-    //    List<TODOItem> tODOItems = tODOItemRepository.findAll();
-    //    assertThat(tODOItems).hasSize(databaseSizeBeforeCreate + 1);
-    //    TODOItem testTODOItem = tODOItems.get(tODOItems.size() - 1);
-    //    assertThat(testTODOItem.getContent()).isEqualTo(DEFAULT_CONTENT);
-    //    assertThat(testTODOItem.getEndDate().toDateTime(DateTimeZone.UTC)).isEqualTo(DEFAULT_END_DATE);
-    //    assertThat(testTODOItem.getDone()).isEqualTo(DEFAULT_DONE);
+    //    // Validate the Task in the database
+    //    List<Task> tasks = taskRepository.findAll();
+    //    assertThat(tasks).hasSize(databaseSizeBeforeCreate + 1);
+    //    Task testTask = tasks.get(tasks.size() - 1);
+    //    assertThat(testTask.getContent()).isEqualTo(DEFAULT_CONTENT);
+    //    assertThat(testTask.getEndDate().toDateTime(DateTimeZone.UTC)).isEqualTo(DEFAULT_END_DATE);
+    //    assertThat(testTask.getDone()).isEqualTo(DEFAULT_DONE);
     }
 
     @Test
     @Transactional
-    public void getAllTODOItems() throws Exception {
+    public void getAllTasks() throws Exception {
         // Initialize the database
-        tODOItemRepository.saveAndFlush(tODOItem);
+        taskRepository.saveAndFlush(task);
 
-        // Get all the tODOItems
-     //   restTODOItemMockMvc.perform(get("/api/tODOItems"))
+        // Get all the tasks
+     //   restTaskMockMvc.perform(get("/api/tasks"))
      //           .andExpect(status().isOk())
      //           .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-     //           .andExpect(jsonPath("$.[*].id").value(hasItem(tODOItem.getId().intValue())))
+     //           .andExpect(jsonPath("$.[*].id").value(hasItem(task.getId().intValue())))
      //           .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
      //           .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE_STR)))
      //           .andExpect(jsonPath("$.[*].done").value(hasItem(DEFAULT_DONE.booleanValue())));
@@ -139,15 +139,15 @@ public class TODOItemResourceTest {
 
     @Test
     @Transactional
-    public void getTODOItem() throws Exception {
+    public void getTask() throws Exception {
         // Initialize the database
-        tODOItemRepository.saveAndFlush(tODOItem);
+        taskRepository.saveAndFlush(task);
 
-        // Get the tODOItem
-     //   restTODOItemMockMvc.perform(get("/api/tODOItems/{id}", tODOItem.getId()))
+        // Get the task
+     //   restTaskMockMvc.perform(get("/api/tasks/{id}", task.getId()))
      //       .andExpect(status().isOk())
      //       .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-     //       .andExpect(jsonPath("$.id").value(tODOItem.getId().intValue()))
+     //       .andExpect(jsonPath("$.id").value(task.getId().intValue()))
      //       .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
      //       .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE_STR))
      //       .andExpect(jsonPath("$.done").value(DEFAULT_DONE.booleanValue()));
@@ -155,56 +155,56 @@ public class TODOItemResourceTest {
 
     @Test
     @Transactional
-    public void getNonExistingTODOItem() throws Exception {
-        // Get the tODOItem
-        restTODOItemMockMvc.perform(get("/api/tODOItems/{id}", Long.MAX_VALUE))
+    public void getNonExistingTask() throws Exception {
+        // Get the task
+        restTaskMockMvc.perform(get("/api/tasks/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateTODOItem() throws Exception {
+    public void updateTask() throws Exception {
         // Initialize the database
-        tODOItemRepository.saveAndFlush(tODOItem);
+        taskRepository.saveAndFlush(task);
 
-		int databaseSizeBeforeUpdate = tODOItemRepository.findAll().size();
+		int databaseSizeBeforeUpdate = taskRepository.findAll().size();
 
-        // Update the tODOItem
-        tODOItem.setContent(UPDATED_CONTENT);
-        tODOItem.setEndDate(UPDATED_END_DATE);
-        tODOItem.setDone(UPDATED_DONE);
+        // Update the task
+        task.setContent(UPDATED_CONTENT);
+        task.setEndDate(UPDATED_END_DATE);
+        task.setDone(UPDATED_DONE);
 
-        TODOItemDTO tODOItemDTO = tODOItemMapper.tODOItemToTODOItemDTO(tODOItem);
+        TaskDTO taskDTO = taskMapper.taskToTaskDTO(task);
 
-     //   restTODOItemMockMvc.perform(put("/api/tODOItems")
+     //   restTaskMockMvc.perform(put("/api/tasks")
      //           .contentType(TestUtil.APPLICATION_JSON_UTF8)
-     //           .content(TestUtil.convertObjectToJsonBytes(tODOItemDTO)))
+     //           .content(TestUtil.convertObjectToJsonBytes(taskDTO)))
      //           .andExpect(status().isOk());
 
-     //   // Validate the TODOItem in the database
-     //   List<TODOItem> tODOItems = tODOItemRepository.findAll();
-     //   assertThat(tODOItems).hasSize(databaseSizeBeforeUpdate);
-     //   TODOItem testTODOItem = tODOItems.get(tODOItems.size() - 1);
-     //   assertThat(testTODOItem.getContent()).isEqualTo(UPDATED_CONTENT);
-     //   assertThat(testTODOItem.getEndDate().toDateTime(DateTimeZone.UTC)).isEqualTo(UPDATED_END_DATE);
-     //   assertThat(testTODOItem.getDone()).isEqualTo(UPDATED_DONE);
+     //   // Validate the Task in the database
+     //   List<Task> tasks = taskRepository.findAll();
+     //   assertThat(tasks).hasSize(databaseSizeBeforeUpdate);
+     //   Task testTask = tasks.get(tasks.size() - 1);
+     //   assertThat(testTask.getContent()).isEqualTo(UPDATED_CONTENT);
+     //   assertThat(testTask.getEndDate().toDateTime(DateTimeZone.UTC)).isEqualTo(UPDATED_END_DATE);
+     //   assertThat(testTask.getDone()).isEqualTo(UPDATED_DONE);
     }
 
     @Test
     @Transactional
-    public void deleteTODOItem() throws Exception {
+    public void deleteTask() throws Exception {
         // Initialize the database
-        tODOItemRepository.saveAndFlush(tODOItem);
+        taskRepository.saveAndFlush(task);
 
-//		int databaseSizeBeforeDelete = tODOItemRepository.findAll().size();
+//		int databaseSizeBeforeDelete = taskRepository.findAll().size();
 //
-//        // Get the tODOItem
-//        restTODOItemMockMvc.perform(delete("/api/tODOItems/{id}", tODOItem.getId())
+//        // Get the task
+//        restTaskMockMvc.perform(delete("/api/tasks/{id}", task.getId())
 //                .accept(TestUtil.APPLICATION_JSON_UTF8))
 //                .andExpect(status().isOk());
 //
 //        // Validate the database is empty
-//        List<TODOItem> tODOItems = tODOItemRepository.findAll();
-//        assertThat(tODOItems).hasSize(databaseSizeBeforeDelete - 1);
+//        List<Task> tasks = taskRepository.findAll();
+//        assertThat(tasks).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

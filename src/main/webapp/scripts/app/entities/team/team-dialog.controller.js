@@ -5,7 +5,7 @@ angular.module('todoappApp').controller('TeamDialogController',
         function($scope, $stateParams, $modalInstance, entity, Team, Task) {
 
         $scope.team = entity;
-        $scope.todoitems = Task.query();
+        $scope.tasks = Task.query();
         $scope.load = function(id) {
             Team.get({id : id}, function(result) {
                 $scope.team = result;

@@ -19,7 +19,7 @@ import java.util.Objects;
  * A Task.
  */
 @Entity
-@Table(name = "TODOITEM")
+@Table(name = "TASK")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Task implements Serializable {
 
@@ -44,8 +44,8 @@ public class Task implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "TODOITEM_SHARED_OWNER",
-               joinColumns = @JoinColumn(name="todoitems_id", referencedColumnName="ID"),
+    @JoinTable(name = "TASK_SHARED_OWNER",
+               joinColumns = @JoinColumn(name="tasks_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="shared_owners_id", referencedColumnName="ID"))
     private Set<Owner> sharedOwners = new HashSet<>();
 

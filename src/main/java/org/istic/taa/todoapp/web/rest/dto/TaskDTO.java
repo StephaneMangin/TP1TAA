@@ -9,9 +9,9 @@ import java.util.function.Predicate;
 
 
 /**
- * A DTO for the TODOItem entity.
+ * A DTO for the Task entity.
  */
-public class TODOItemDTO implements Serializable {
+public class TaskDTO implements Serializable {
 
     private Long id;
 
@@ -94,9 +94,9 @@ public class TODOItemDTO implements Serializable {
             return false;
         }
 
-        TODOItemDTO tODOItemDTO = (TODOItemDTO) o;
+        TaskDTO taskDTO = (TaskDTO) o;
 
-        if ( ! Objects.equals(id, tODOItemDTO.id)) return false;
+        if ( ! Objects.equals(id, taskDTO.id)) return false;
 
         return true;
     }
@@ -108,7 +108,7 @@ public class TODOItemDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "TODOItemDTO{" +
+        return "TaskDTO{" +
                 "id=" + id +
                 ", content='" + content + "'" +
                 ", endDate='" + endDate + "'" +

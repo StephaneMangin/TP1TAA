@@ -4,43 +4,43 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myTODOItemLabel" translate="todoappApp.tODOItem.home.createOrEditLabel">Create or edit a TODOItem</h4>
+        <h4 class="modal-title" id="myTaskLabel" translate="todoappApp.task.home.createOrEditLabel">Create or edit a Task</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
         <div class="form-group">
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                    ng-model="tODOItem.id" readonly>
+                    ng-model="task.id" readonly>
         </div>
         <div class="form-group">
-            <label translate="todoappApp.tODOItem.content" for="field_content">Content</label>
+            <label translate="todoappApp.task.content" for="field_content">Content</label>
             <input type="text" class="form-control" name="content" id="field_content"
-                    ng-model="tODOItem.content"
+                    ng-model="task.content"
                     >
         </div>
         <div class="form-group">
-            <label translate="todoappApp.tODOItem.endDate" for="field_endDate">EndDate</label>
+            <label translate="todoappApp.task.endDate" for="field_endDate">EndDate</label>
             <input type="datetime-local" class="form-control" name="endDate" id="field_endDate"
-                    ng-model="tODOItem.endDate" ng-model-options="{timezone: 'UTC'}"
+                    ng-model="task.endDate" ng-model-options="{timezone: 'UTC'}"
                     >
         </div>
         <div class="form-group">
-            <label translate="todoappApp.tODOItem.done" for="field_done">Done</label>
+            <label translate="todoappApp.task.done" for="field_done">Done</label>
             <input type="checkbox" class="form-control" name="done" id="field_done"
-                    ng-model="tODOItem.done"
+                    ng-model="task.done"
                     >
         </div>
 
         <!--div class="form-group">
-            <label translate="todoappApp.tODOItem.owner" for="field_owner">owner</label>
-            <select class="form-control" id="field_owner" name="owner" ng-model="tODOItem.ownerId" ng-options="Owner.id as Owner.name for Owner in owners">
+            <label translate="todoappApp.task.owner" for="field_owner">owner</label>
+            <select class="form-control" id="field_owner" name="owner" ng-model="task.ownerId" ng-options="Owner.id as Owner.name for Owner in owners">
                 <option value=""></option>
             </select>
         </div-->
         <div class="form-group">
-            <label translate="todoappApp.tODOItem.sharedOwner" for="field_sharedOwner">sharedOwner</label>
-            <select class="form-control" id="field_sharedOwner" multiple name="sharedOwner" ng-model="tODOItem.sharedOwners" ng-options="Owner as Owner.name for Owner in owners track by Owner.id"></select>
+            <label translate="todoappApp.task.sharedOwner" for="field_sharedOwner">sharedOwner</label>
+            <select class="form-control" id="field_sharedOwner" multiple name="sharedOwner" ng-model="task.sharedOwners" ng-options="Owner as Owner.name for Owner in owners track by Owner.id"></select>
         </div>
     </div>
     <div class="modal-footer">

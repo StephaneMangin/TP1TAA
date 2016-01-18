@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the TODOItem entity.
+ * Performance test for the Task entity.
  */
-class TODOItemGatlingTest extends Simulation {
+class TaskGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -37,7 +37,7 @@ class TODOItemGatlingTest extends Simulation {
         "X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
-    val scn = scenario("Test the TODOItem entity")
+    val scn = scenario("Test the Task entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -59,26 +59,26 @@ class TODOItemGatlingTest extends Simulation {
         .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all tODOItems")
-            .get("/api/tODOItems")
+            exec(http("Get all tasks")
+            .get("/api/tasks")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new tODOItem")
-            .post("/api/tODOItems")
+            .exec(http("Create new task")
+            .post("/api/tasks")
             .headers(headers_http_authenticated)
             .body(StringBody("""{"id":null, "content":"SAMPLE_TEXT", "endDate":"2020-01-01T00:00:00.000Z", "done":null}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_tODOItem_url")))
+            .check(headerRegex("Location", "(.*)").saveAs("new_task_url")))
             .pause(10)
             .repeat(5) {
-                exec(http("Get created tODOItem")
-                .get("${new_tODOItem_url}")
+                exec(http("Get created task")
+                .get("${new_task_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created tODOItem")
-            .delete("${new_tODOItem_url}")
+            .exec(http("Delete created task")
+            .delete("${new_task_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

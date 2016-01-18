@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('todoappApp').controller('OwnerDialogController',
-    ['$scope', '$stateParams', '$modalInstance', '$q', 'entity', 'Owner', 'User', 'TODOItem',
-        function($scope, $stateParams, $modalInstance, $q, entity, Owner, User, TODOItem) {
+    ['$scope', '$stateParams', '$modalInstance', '$q', 'entity', 'Owner', 'User', 'Task',
+        function($scope, $stateParams, $modalInstance, $q, entity, Owner, User, Task) {
 
         $scope.owner = entity;
         $scope.users = User.query({filter: 'owner-is-null'});
@@ -14,7 +14,7 @@ angular.module('todoappApp').controller('OwnerDialogController',
         }).then(function(user) {
             $scope.users.push(user);
         });
-        $scope.todoitems = TODOItem.query();
+        $scope.tasks = Task.query();
         $scope.load = function(id) {
             Owner.get({id : id}, function(result) {
                 $scope.owner = result;
