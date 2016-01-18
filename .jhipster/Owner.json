@@ -12,7 +12,7 @@
         {
             "relationshipId": 2,
             "relationshipName": "task",
-            "otherEntityName": "",
+            "otherEntityName": "Task",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "owner"
         },
