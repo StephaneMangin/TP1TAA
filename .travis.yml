@@ -18,8 +18,11 @@ before_install:
   - bower install
   - npm install
 install:
-  - mvn clean package -DskipTests -Pprod
+  - mvn clean package -Pprod
 after_install:
+  - docker build -t nemomen/taa -f Dockerfile .
+  - docker login -u nemomen -p 1camel -e stephane.mangin@freesbee.fr
+  - docker push nemomen/taa
   - docker-compose up -d
   - docker-compose scale service=3
 before_script:

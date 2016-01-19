@@ -14,11 +14,10 @@ postgres:
     environment:
         - POSTGRES_PASSWORD=123456789abc
         - POSTGRES_USER=TODOApp
+        - POSTGRES_DB=jhipster
 
 service:
-    image: taa_tp/todoapp
-    volumes:
-        - target
+    image: nemomen/taa
     expose:
         - "8080"
     links:

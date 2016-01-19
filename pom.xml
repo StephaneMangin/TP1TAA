@@ -12,7 +12,7 @@
     <groupId>org.istic.taa</groupId>
     <artifactId>todoapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>TODOApp</name>
 
@@ -636,7 +636,7 @@
             <dependencies>
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-undertow</artifactId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
                 </dependency>
             </dependencies>
         </profile>
@@ -647,7 +647,7 @@
                     <plugin>
                         <groupId>com.github.trecloux</groupId>
                         <artifactId>yeoman-maven-plugin</artifactId>
-                        <version>0.4</version>
+                        <version>0.5</version>
                         <executions>
                             <execution>
                                 <id>run-frontend-build</id>

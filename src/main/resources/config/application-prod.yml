@@ -10,7 +10,7 @@ spring:
     datasource:
         dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
         url:
-        databaseName: TODOApp
+        databaseName: jhipster
         serverName: localhost
         username: TODOApp
         password: 123456789abc
