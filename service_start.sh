@@ -9,5 +9,5 @@ while [ "$result" != "succeeded!" ]; do
 done
 
 echo "Starting service."
-java -Dspring.datasource.url="jdbc:postgresql://$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/jhipster" -war totoapp-0.0.1-SNAPSHOT.war
+java -Dspring.datasource.url="jdbc:postgresql://$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/jhipster" -jar todoapp-0.0.1-SNAPSHOT.jar
 
