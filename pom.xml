@@ -29,7 +29,7 @@
         <commons-lang.version>2.6</commons-lang.version>
         <gatling-maven-plugin.version>2.1.6</gatling-maven-plugin.version>
         <gatling.version>2.1.6</gatling.version>
-        <hazelcast.version>3.5.2</hazelcast.version>
+        <hazelcast.version>4.0.5</hazelcast.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
         <hikaricp.version>2.4.0</hikaricp.version>
         <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
